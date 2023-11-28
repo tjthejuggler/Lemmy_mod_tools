@@ -1,0 +1,98 @@
+{
+  "3": {
+    "inputs": {
+      "seed": 404216501126145,
+      "steps": 60,
+      "cfg": 6,
+      "sampler_name": "dpmpp_2m_sde_gpu",
+      "scheduler": "karras",
+      "denoise": 0.5,
+      "model": [
+        "14",
+        0
+      ],
+      "positive": [
+        "6",
+        0
+      ],
+      "negative": [
+        "7",
+        0
+      ],
+      "latent_image": [
+        "12",
+        0
+      ]
+    },
+    "class_type": "KSampler"
+  },
+  "6": {
+    "inputs": {
+      "text": "realistic alien animal hair communication network, multi-layered optical illusion, realistic 3D animals blending into psychedelic quantum strings, detailed, multi-dimensional, communication galaxy network, professional digital art",
+      "clip": [
+        "14",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode"
+  },
+  "7": {
+    "inputs": {
+      "text": "watermark, text\n",
+      "clip": [
+        "14",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode"
+  },
+  "8": {
+    "inputs": {
+      "samples": [
+        "3",
+        0
+      ],
+      "vae": [
+        "14",
+        2
+      ]
+    },
+    "class_type": "VAEDecode"
+  },
+  "9": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "8",
+        0
+      ]
+    },
+    "class_type": "SaveImage"
+  },
+  "10": {
+    "inputs": {
+      "image": "digitalbioacoustics_banner (1).webp",
+      "choose file to upload": "image"
+    },
+    "class_type": "LoadImage"
+  },
+  "12": {
+    "inputs": {
+      "pixels": [
+        "10",
+        0
+      ],
+      "vae": [
+        "14",
+        2
+      ]
+    },
+    "class_type": "VAEEncode"
+  },
+  "14": {
+    "inputs": {
+      "ckpt_name": "sd_xl_refiner_1.0.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple"
+  }
+}
