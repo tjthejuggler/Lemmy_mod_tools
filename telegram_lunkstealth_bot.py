@@ -1,6 +1,7 @@
 from telegram import Bot
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters
 import change_banner_if_new_post
+import change_db_icon
 import volume_control
 import subprocess
 import psutil
@@ -37,13 +38,23 @@ async def echo(update, context):
         await update.message.reply_text("Updating banner...")
         change_banner_if_new_post.update_banner_if_new_post()
         await update.message.reply_text("Banner updated successfully!")
-    if received_text.lower().startswith("v"):
-        #set computer volume
-        volume_control.set_volume(int(received_text[2:]))
-        #get computer volume
-        # current_volume = volume_control.get_volume()
-        # print(current_volume)
-    if received_text.lower() == "s":
+        await update.message.reply_text("Updating icon...")
+        change_db_icon.update_icon_if_new_post()
+        await update.message.reply_text("Icon updated successfully!")
+    elif received_text.lower() == "ub":
+        await update.message.reply_text("Updating banner...")
+        change_banner_if_new_post.update_banner_if_new_post()
+        await update.message.reply_text("Banner updated successfully!")
+    elif received_text.lower() == "ui":        
+        await update.message.reply_text("Updating icon...")
+        change_db_icon.update_icon_if_new_post()
+        await update.message.reply_text("Icon updated successfully!")
+    elif received_text.lower().startswith("v"):
+        try:
+            volume_control.set_volume(int(received_text[2:]))
+        except:
+            pass
+    elif received_text.lower() == "s":
         security_program_running = not security_program_running
         if security_program_running:
             subprocess.Popen(["python", security_program])

@@ -93,3 +93,42 @@ def create_new_banner(prompt):
     queue_prompt(prompt_workflow)
 
     #return filepaths
+
+def create_new_icon(incoming_text):
+    prompt = "realistic "+incoming_text+", spectrogram waveform, music visualizer, white spheres background, detailed, white circles"
+    # read workflow api data from file and convert it into dictionary 
+    # assign to var prompt_workflow
+    prompt_workflow = json.load(open('/home/lunkwill/projects/Lemmy_mod_tools/db_icon_new_api.json'))
+
+    # create a list of prompts
+    prompt_list = []
+    prompt_list.append(prompt)
+
+    prompt_pos_node = prompt_workflow["6"]
+    # empty_latent_img_node = prompt_workflow["5"]
+    ksampler_node = prompt_workflow["3"]
+    save_image_node = prompt_workflow["9"]
+
+    filepaths = []
+    # for every prompt in prompt_list...
+    for index, prompt in enumerate(prompt_list):
+        # set the text prompt for positive CLIPTextEncode node
+        prompt_pos_node["inputs"]["text"] = prompt
+        seed = random.randint(1, 18446744073709551614)
+        # set a random seed in KSampler node 
+        ksampler_node["inputs"]["seed"] = seed
+
+        # set filename prefix to be the same as prompt
+        # (truncate to first 100 chars if necessary)
+        fileprefix = prompt.replace(" ", "_")
+        if len(fileprefix) > 80:
+            fileprefix = fileprefix[:80]
+
+        save_image_node["inputs"]["filename_prefix"] = fileprefix
+        #make a random number
+        filepaths.append("/home/lunkwill/projects/ComfyUI/output/"+fileprefix+"_"+str(seed)+".png")
+
+    # everything set, add entire workflow to queue.
+    queue_prompt(prompt_workflow)
+
+    #return filepaths
