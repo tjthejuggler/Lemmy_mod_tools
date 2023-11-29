@@ -5,13 +5,11 @@ import volume_control
 import subprocess
 import psutil
 import tkinter as tk
-from threading import Thread
+#from threading import Thread
 import asyncio
 import threading
-import tracemalloc
 
 root = None
-
 
 security_program = '/home/lunkwill/projects/Lemmy_mod_tools/telegram_security_cam.py'
 security_program_running = False
@@ -33,16 +31,18 @@ async def echo(update, context):
 
     received_text = update.message.text
     current_volume = "10"
-    security_is_running = is_running(security_program)
+
     print(f"Received text: {received_text}")
     if received_text.lower() == "u":
         await update.message.reply_text("Updating banner...")
         change_banner_if_new_post.update_banner_if_new_post()
         await update.message.reply_text("Banner updated successfully!")
-    if received_text.lower() == "v":
+    if received_text.lower().startswith("v"):
+        #set computer volume
+        volume_control.set_volume(int(received_text[2:]))
         #get computer volume
-        current_volume = volume_control.get_volume()
-        print(current_volume)
+        # current_volume = volume_control.get_volume()
+        # print(current_volume)
     if received_text.lower() == "s":
         security_program_running = not security_program_running
         if security_program_running:
@@ -52,8 +52,8 @@ async def echo(update, context):
 
         # Call the global function to update the checkbox
         update_checkbox_state()
-
-    await update.message.reply_text(received_text+"\nu - update banner\nv - toggle volume("+current_volume+")\ns - toggle security program(tem_bot")
+    
+    await update.message.reply_text(received_text+"\nu - update banner\nv - toggle volume("+str(volume_control.get_volume())+")\ns - toggle security program(tem_bot")
 
 def update_checkbox_state():
     global root, security_var, security_program_running
