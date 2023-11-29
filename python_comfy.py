@@ -31,6 +31,7 @@ def queue_prompt(prompt_workflow):
             if len(files_after) > len(files_before):
                 break
             time.sleep(1)  # Check every second
+        time.sleep(10)
         subprocess.run(["pkill", "-f", "/home/lunkwill/projects/ComfyUI/main.py"], check=True)
         print("Server process terminated.")
 
