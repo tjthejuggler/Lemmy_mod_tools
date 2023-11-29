@@ -1,9 +1,11 @@
 import asyncio
 from pyrogram import Client
 
-api_id = 28565373
-api_hash = "dad789423430505007d4dfc48192b9ce"
-
+#these are from here https://core.telegram.org/api/obtaining_api_id
+with open ('/home/lunkwill/projects/Lemmy_mod_tools/telegram_app_id.txt', 'r') as f:
+    api_id = f.read()
+with open ('/home/lunkwill/projects/Lemmy_mod_tools/telegram_app_hash.txt', 'r') as f:
+    api_hash = f.read()
 
 async def main():
     async with Client("my_account", api_id, api_hash) as app:
@@ -12,12 +14,3 @@ async def main():
 
 asyncio.run(main())
 
-
-# from pyrogram import Client
-
-# api_id = 28565373
-# api_hash = "dad789423430505007d4dfc48192b9ce"
-
-# app = Client("my_account", api_id=api_id, api_hash=api_hash)
-
-# app.run()

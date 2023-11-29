@@ -1,0 +1,3 @@
+make a message that toggles mute/volume
+
+if it sees motion then it should just start recording video and send me some frames.

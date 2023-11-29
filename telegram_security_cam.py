@@ -20,10 +20,6 @@ def is_motion_detected(reference_frame, current_frame, threshold):
     # If the changed area exceeds our threshold, motion is detected
     return changed_area > threshold
 
-
-# # Initialize Pyrogram Client
-# api_id = 'YOUR_API_ID'  # Replace with your API ID
-# api_hash = 'YOUR_API_HASH'  # Replace with your API Hash
 app = Client("my_account")
 
 # Function to send the image
@@ -39,11 +35,11 @@ ret, previous_frame = cap.read()
 while True:
     ret, current_frame = cap.read()
     if ret:
-        cv2.imwrite('current_image.jpg', current_frame)
+        cv2.imwrite('/home/lunkwill/projects/Lemmy_mod_tools/images/current_image.jpg', current_frame)
         
         if is_motion_detected(previous_frame, current_frame, 0.7):
             print('Motion detected!')
-            app.run(send_image('current_image.jpg'))
+            app.run(send_image('/home/lunkwill/projects/Lemmy_mod_tools/images/current_image.jpg'))
 
         previous_frame = current_frame
 

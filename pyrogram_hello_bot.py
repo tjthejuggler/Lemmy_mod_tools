@@ -1,8 +1,14 @@
 from pyrogram import Client
 
-api_id = 28565373
-api_hash = "dad789423430505007d4dfc48192b9ce"
-bot_token = "6840462381:AAFU8vAOD_eG_44TqFVMNETGZayCydmDvdk"
+#these are from here https://core.telegram.org/api/obtaining_api_id
+with open ('/home/lunkwill/projects/Lemmy_mod_tools/telegram_app_id.txt', 'r') as f:
+    api_id = f.read()
+with open ('/home/lunkwill/projects/Lemmy_mod_tools/telegram_app_hash.txt', 'r') as f:
+    api_hash = f.read()
+
+#this is through @BotFather
+with open ('/home/lunkwill/projects/Lemmy_mod_tools/telegram_lunkstealth_bot_auth.txt', 'r') as f:
+    bot_token = f.read()
 
 app = Client(
     "lunkstealth_bot",
