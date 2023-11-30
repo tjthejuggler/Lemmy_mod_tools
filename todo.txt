@@ -1,3 +1,13 @@
+11/30
+if it isnt active, then it should slowly fade and then close itself
+most recently received command should go ion the left ball
+checkboxes and buttons should look nicer
+clicking somewhere should open habits
+holding down the x button should totally close it
+putting it into a certain corner could start a pomadoro timer
+putting it in a certain corner or something could make my phone silent, maybe..
+clicking in system tray should maximize and bring to front
+
 make a message that toggles mute/volume
 
 if it sees motion then it should just start recording video and send me some frames.

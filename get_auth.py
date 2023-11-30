@@ -3,10 +3,10 @@ import requests
 def get_auth_token():
     auth_token = "None"
     # Your Lemmy credentials
-    with open('/home/lunkwill/projects/Lemmy_mod_tools/username.txt', 'r') as f:
+    with open('/home/lunkwill/projects/Lemmy_mod_tools/secrets/username.txt', 'r') as f:
         username = f.read()
 
-    with open('/home/lunkwill/projects/Lemmy_mod_tools/password.txt', 'r') as f:
+    with open('/home/lunkwill/projects/Lemmy_mod_tools/secrets/password.txt', 'r') as f:
         password = f.read()
 
     # Login data

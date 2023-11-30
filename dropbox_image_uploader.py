@@ -4,16 +4,16 @@ import json
 import time
 
 # Dropbox app credentials
-with open('/home/lunkwill/projects/Lemmy_mod_tools/dropbox_app_key.txt', 'r') as f:
+with open('/home/lunkwill/projects/Lemmy_mod_tools/secrets/dropbox_app_key.txt', 'r') as f:
     APP_KEY = f.read().strip()
 
-with open('/home/lunkwill/projects/Lemmy_mod_tools/dropbox_app_secret.txt', 'r') as f:
+with open('/home/lunkwill/projects/Lemmy_mod_tools/secrets/dropbox_app_secret.txt', 'r') as f:
     APP_SECRET = f.read().strip()
 
 
 
 # Dropbox access token
-with open('/home/lunkwill/projects/Lemmy_mod_tools/dropbox_access_token.txt', 'r') as f:
+with open('/home/lunkwill/projects/Lemmy_mod_tools/secrets/dropbox_access_token.txt', 'r') as f:
     access_token = f.read()
 
 # Function to refresh access token
@@ -32,12 +32,12 @@ def refresh_access_token(refresh_token):
 # Function to upload image
 def upload_image(file_path):
     # Read refresh token from file
-    with open('/home/lunkwill/projects/Lemmy_mod_tools/dropbox_refresh_token.txt', 'r') as f:
+    with open('/home/lunkwill/projects/Lemmy_mod_tools/secrets/dropbox_refresh_token.txt', 'r') as f:
         refresh_token = f.read().strip()
 
     # Try to use the existing access token, refresh if expired
     try:
-        with open('/home/lunkwill/projects/Lemmy_mod_tools/dropbox_access_token.txt', 'r') as f:
+        with open('/home/lunkwill/projects/Lemmy_mod_tools/secrets/dropbox_access_token.txt', 'r') as f:
             access_token = f.read().strip()
 
         dbx = dropbox.Dropbox(access_token)
@@ -46,7 +46,7 @@ def upload_image(file_path):
     except dropbox.exceptions.AuthError:
         # Refresh token if there's an authentication error
         access_token = refresh_access_token(refresh_token)
-        with open('/home/lunkwill/projects/Lemmy_mod_tools/dropbox_access_token.txt', 'w') as f:
+        with open('/home/lunkwill/projects/Lemmy_mod_tools/secrets/dropbox_access_token.txt', 'w') as f:
             f.write(access_token)
         dbx = dropbox.Dropbox(access_token)
 

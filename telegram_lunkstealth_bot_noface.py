@@ -74,7 +74,7 @@ def run_telegram_bot():
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
 
-    with open('/home/lunkwill/projects/Lemmy_mod_tools/telegram_lunkstealth_bot_auth.txt', 'r') as f:
+    with open('/home/lunkwill/projects/Lemmy_mod_tools/secrets/telegram_lunkstealth_bot_auth.txt', 'r') as f:
         token = f.read().strip()
 
     bot = Bot(token)

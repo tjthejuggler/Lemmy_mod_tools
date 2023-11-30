@@ -42,7 +42,7 @@ async def echo(update, context):
 
 
 def main():
-    with open('/home/lunkwill/projects/Lemmy_mod_tools/telegram_lunkstealth_bot_auth.txt', 'r') as f:
+    with open('/home/lunkwill/projects/Lemmy_mod_tools/secrets/telegram_lunkstealth_bot_auth.txt', 'r') as f:
         token = f.read()
 
     bot = Bot(token)  # Create a Bot instance
