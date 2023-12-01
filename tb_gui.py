@@ -87,23 +87,6 @@ class TransparentWindow(QWidget):
             }
         """)
 
-        self.minimize_btn = QPushButton('-', self)
-        self.minimize_btn.clicked.connect(self.showMinimized)
-        self.minimize_btn.resize(20, 20)
-        self.minimize_btn.move(self.width() - 75, 40)
-
-        # Style for the minimize button
-        self.minimize_btn.setStyleSheet("""
-            QPushButton {
-                background-color: transparent;
-                color: black;
-                border: none;
-            }
-            QPushButton:hover {
-                color: blue;
-            }
-        """)
-
         self.text_label = QLabel('Hello! Send me a command.', self)
         self.text_label.move(self.width() - 500, 40)
         #make the text black
