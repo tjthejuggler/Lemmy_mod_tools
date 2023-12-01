@@ -19,9 +19,9 @@ async def echo(update, context, window):
 
     received_text = update.message.text
     current_volume = "10"
-
-    #make a sound that indicates a text has been received
-    subprocess.run(["paplay", "/home/lunkwill/projects/Lemmy_mod_tools/sounds/black_grouse_notification_mod.wav"], check=True)
+    if received_text.lower() != "v 0":
+        #make a sound that indicates a text has been received
+        subprocess.run(["paplay", "/home/lunkwill/projects/Lemmy_mod_tools/sounds/black_grouse_notification_mod.wav"], check=True)
 
     print(f"Received text: {received_text}")
     if received_text.lower() == "u":

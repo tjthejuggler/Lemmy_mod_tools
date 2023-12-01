@@ -1,0 +1,7 @@
+2023-12-01 21:55:47,146 - DEBUG - Script started
+2023-12-01 21:55:47,146 - DEBUG - Starting litellm process
+2023-12-01 21:55:47,149 - DEBUG - Starting new HTTP connection (1): 0.0.0.0:8000
+2023-12-01 21:55:47,160 - DEBUG - http://0.0.0.0:8000 "POST /chat/completions HTTP/1.1" 500 3014
+2023-12-01 21:55:47,160 - DEBUG - Process started with PID: 638556
+2023-12-01 21:55:57,166 - DEBUG - Sending SIGINT signal
+2023-12-01 21:55:57,166 - DEBUG - Process alive after SIGINT: True

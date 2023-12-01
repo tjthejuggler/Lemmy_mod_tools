@@ -9,6 +9,8 @@ import json
 import ask_local_llm
 import ask_chatGPT
 
+import LMstudio_RPA
+
 # def read_last_known_post_id(file_path):
 #     if os.path.exists(file_path):
 #         with open(file_path, 'r') as file:
@@ -48,7 +50,11 @@ def get_animal_from_post_title(post_title):
         title_subject = "Nothing has been attempted to be made yet"
         try:
             system_prompt = "You are an information parser. You follow directions exactly. You only ever say a single animal name with no special characters or punctuation. You receive the title of an article. You respond with a type of animal that the article is about."
-            title_subject = ask_local_llm.send_prompt_to_llm(system_prompt, post_title)
+            LMstudio_is_already_running = LMstudio_RPA.is_server_running()
+            if LMstudio_is_already_running == False:
+                LMstudio_RPA.start_server()
+            title_subject = ask_local_llm.send_prompt_to_llm(post_title, system_prompt)
+            LMstudio_RPA.stop_server()
             #remove whitespace from before and after the title_subject
             title_subject = title_subject.strip()
             print("title_subject from local llm", title_subject)
