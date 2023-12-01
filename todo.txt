@@ -1,4 +1,6 @@
 11/30
+make security camera work more in real time
+make an icon for the telegram bot window
 if it isnt active, then it should slowly fade and then close itself
 most recently received command should go ion the left ball
 checkboxes and buttons should look nicer
