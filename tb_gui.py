@@ -113,7 +113,9 @@ class TransparentWindow(QWidget):
         self.tray_icon.show()
 
     def tray_icon_activated(self, reason):
-        if reason in (QSystemTrayIcon.Trigger, QSystemTrayIcon.DoubleClick):
+        if reason == QSystemTrayIcon.MiddleClick:
+            QApplication.quit()  # Quit the application on middle-click
+        elif reason in (QSystemTrayIcon.Trigger, QSystemTrayIcon.DoubleClick):
             self.show_window()
 
     def show_window(self):
