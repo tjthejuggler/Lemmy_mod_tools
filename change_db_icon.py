@@ -8,8 +8,9 @@ from lemmy import Lemmy
 import json
 import ask_local_llm
 import ask_chatGPT
+import subprocess
 
-import LMstudio_RPA
+#import LMstudio_RPA
 
 # def read_last_known_post_id(file_path):
 #     if os.path.exists(file_path):
@@ -37,32 +38,48 @@ def fetch_latest_post_info(community_id, excluded_title="Bioacoustics Resources"
 
     return None, None
 
-def get_animal_from_post_title(post_title):
+def get_animal_from_post_title(post_title, force_animal=None):
     #look in post_title_animal_history.json for post_title
     #if it exists, return the animal
     with open('/home/lunkwill/projects/Lemmy_mod_tools/post_title_animal_history.json', 'r') as f:
         post_title_animal_history = json.load(f)
+    if force_animal:
+        #put force_animal in post_title_animal_history.json at post_title
+        post_title_animal_history[post_title] = force_animal
+        with open('/home/lunkwill/projects/Lemmy_mod_tools/post_title_animal_history.json', 'w') as f:
+            json.dump(post_title_animal_history, f)
+        title_subject = force_animal
+        print("title_subject from force_animal", title_subject)
+        return title_subject
     if post_title in post_title_animal_history:
         title_subject = post_title_animal_history[post_title]
         print("title_subject from json", title_subject)
         return title_subject        
     else:
         title_subject = "Nothing has been attempted to be made yet"
+        local_failed = False
         try:
+            print('trying')
             system_prompt = "You are an information parser. You follow directions exactly. You only ever say a single animal name with no special characters or punctuation. You receive the title of an article. You respond with a type of animal that the article is about."
-            LMstudio_is_already_running = LMstudio_RPA.is_server_running()
-            if LMstudio_is_already_running == False:
-                LMstudio_RPA.start_server()
-            title_subject = ask_local_llm.send_prompt_to_llm(post_title, system_prompt)
-            LMstudio_RPA.stop_server()
+            #LMstudio_is_already_running = LMstudio_RPA.is_server_running()
+            # if LMstudio_is_already_running == False:
+            #     print("starting server")
+            #     LMstudio_RPA.start_server()
+            title_subject = ask_local_llm.send_prompt_to_llm_litellm(post_title, system_prompt)
+            orca_mini = subprocess.Popen(["ollama", "run", "orca-mini:3b"], preexec_fn=os.setsid)
+            time.sleep(5)
+            orca_mini.kill()
+
+            #LMstudio_RPA.stop_server()
             #remove whitespace from before and after the title_subject
             title_subject = title_subject.strip()
             print("title_subject from local llm", title_subject)
             #get the number of words in the title_subject
         except:
             title_subject = "Local LLM failed to make anything"
-        title_subject_num_words = len(title_subject.split(" "))
-        if (title_subject_num_words > 4):
+            local_failed = True
+        #title_subject_num_words = len(title_subject.split(" "))
+        if (local_failed == True):
             gpt_prompt = ("Respond with a single type on animal and no punctuation. What animal might an article with the title '"+post_title+"' be about?")
             title_subject = ask_chatGPT.send_request(gpt_prompt)
             title_subject = title_subject.strip()
@@ -74,7 +91,7 @@ def get_animal_from_post_title(post_title):
         return title_subject
 
 
-def update_icon_if_new_post():
+def update_icon_if_new_post(force_animal=None):
     community_id = 78581  # Your community ID
     # last_known_id_file_path = '/home/lunkwill/projects/Lemmy_mod_tools/last_post_id.txt'
     # last_known_post_id = read_last_known_post_id(last_known_id_file_path)
@@ -87,7 +104,7 @@ def update_icon_if_new_post():
     output_dir = "/home/lunkwill/projects/ComfyUI/output"
     files_before = os.listdir(output_dir)
     print("files_before_IF", str(len(files_before)))
-    title_animal = get_animal_from_post_title(latest_post_title)
+    title_animal = get_animal_from_post_title(latest_post_title, force_animal)
     python_comfy.create_new_icon(title_animal)
 
     while True:        
@@ -101,6 +118,8 @@ def update_icon_if_new_post():
     icon_filepath = os.path.join(output_dir, files_after[0])
 
     print("icon_filepath", icon_filepath)
+
+
     icon_url = dropbox_image_uploader.upload_image(icon_filepath)
     #wait for the image to be uploaded
     while not icon_url:
@@ -109,6 +128,8 @@ def update_icon_if_new_post():
     print("icon_url", icon_url)
     set_community_icon.update_icon(icon_url)
     #write_last_known_post_id(last_known_id_file_path, latest_post_id)
+
+
     print("icon updated successfully!")
     # else:
     #     print("No new posts found.")

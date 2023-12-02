@@ -35,9 +35,12 @@ async def echo(update, context, window):
         await update.message.reply_text("Updating banner...")
         change_banner_if_new_post.update_banner_if_new_post()
         await update.message.reply_text("Banner updated successfully!")
-    elif received_text.lower() == "ui":        
+    elif received_text.lower().startswith("ui"):        
         await update.message.reply_text("Updating icon...")
-        change_db_icon.update_icon_if_new_post()
+        if len(received_text.split(" ")) > 1:
+            change_db_icon.update_icon_if_new_post(" ".join(received_text.split(" ")[1:]))          
+        else:
+            change_db_icon.update_icon_if_new_post()
         await update.message.reply_text("Icon updated successfully!")
     elif received_text.lower().startswith("v"):
         try:

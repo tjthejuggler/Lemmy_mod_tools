@@ -4,6 +4,7 @@ import time
 def is_server_running():
     LMstudio_activity_icon = pyautogui.locateCenterOnScreen('/home/lunkwill/projects/Lemmy_mod_tools/LMstudio_activity_icon.png')
     if LMstudio_activity_icon is not None:
+        print("LMstudio is already running")
         return True
     else:
         return False
@@ -13,6 +14,10 @@ def start_server():
     start_button = pyautogui.locateCenterOnScreen('/home/lunkwill/projects/Lemmy_mod_tools/LMstudio_icon.png')
     if start_button is not None:
         pyautogui.click(start_button)
+    else:
+        start_button = pyautogui.locateCenterOnScreen('/home/lunkwill/projects/Lemmy_mod_tools/LMstudio_icon2.png')
+        if start_button is not None:
+            pyautogui.click(start_button)
     time.sleep(10)
 
     start_button = pyautogui.locateCenterOnScreen('/home/lunkwill/projects/Lemmy_mod_tools/LMstudio_server_tab.png')
@@ -53,3 +58,5 @@ def stop_server():
     pyautogui.press('c')
 
 #stop_server()
+
+#start_server()

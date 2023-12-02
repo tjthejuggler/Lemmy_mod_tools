@@ -7,7 +7,7 @@ import subprocess
 import time
 import os
 
-import LMstudio_RPA
+#import LMstudio_RPA
 #from litellm import completion
 
 
@@ -106,4 +106,70 @@ def send_prompt_to_llm_litellm(user_prompt, system_prompt = None):
         print("Server killed")
     return response_json['choices'][0]['message']['content']
 
-print(send_prompt_to_llm_old("What is the largest animal?", "You are an AI Assistant."))
+#print(send_prompt_to_llm_old("What is the largest animal?", "You are an AI Assistant."))
+
+
+#you have to run this command in terminal- litellm --model ollama/mistral
+def send_prompt_to_llm_litellm_small_to_release(user_prompt, system_prompt = None):
+    server_started_now = False
+    url = "http://0.0.0.0:8000"
+    # # Check if the server is running
+    # try:
+    #     response = requests.get(url)
+    #     if response.status_code == 200:
+    #         print("Server is running")
+            
+    # except requests.exceptions.RequestException as err:
+    server_started_now = True
+    print("Server is not running, starting it noaw...")
+    #start ollama ollama run mistral
+
+    #starl litellm
+    #litellm_process = subprocess.Popen(["litellm", "--model", "ollama/mistral"])
+    # subprocess.Popen(["litellm", "--model", "ollama/mistral"], preexec_fn=os.setsid)
+
+    # time.sleep(5)
+
+    url = "http://0.0.0.0:8000/chat/completions"
+    headers = {"Content-Type": "application/json"}
+    if system_prompt is None:
+        data = {
+            "model": "gpt-3.5-turbo",
+            "messages": [
+                {"role": "user", "content": user_prompt}
+            ]
+        }
+    else:
+        data = {
+            "model": "gpt-3.5-turbo",
+            "messages": [
+                {"role": "user", "content": user_prompt},
+                {"role": "system", "content": system_prompt}
+            ]
+        }
+    real_response = requests.post(url, headers=headers, data=json.dumps(data))
+    #print(response.json())
+    # Convert the response to JSON
+    response_json = real_response.json()
+    # Get the content string
+    print(response_json)
+    # url = "http://0.0.0.0:8000/chat/completions"
+    # headers = {"Content-Type": "application/json"}
+    # subprocess.Popen(["litellm", "--model", "ollama/orca-mini"], preexec_fn=os.setsid)
+    #ollama run orca-mini:3b
+    orca_mini = subprocess.Popen(["ollama", "run", "orca-mini:3b"], preexec_fn=os.setsid)
+    time.sleep(5)
+    orca_mini.terminate()
+    # data = {
+    #     "model": "gpt-3.5-turbo",
+    #     "messages": [
+    #         {"role": "user", "content": "what is the largest animal?"},
+    #     ]
+    # }
+    # empty_response = requests.post(url, headers=headers, data=json.dumps(data))
+    # empty_response_json = empty_response.json()
+    # print("Server killed")
+    # print(empty_response_json)
+    return response_json['choices'][0]['message']['content']
+
+#send_prompt_to_llm_litellm_small_to_release("What is the largest animal?", "You are an AI Assistant.")

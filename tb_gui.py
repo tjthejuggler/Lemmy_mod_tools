@@ -6,6 +6,8 @@ import os
 import random
 import subprocess
 
+print('Starting tb_gui.py')
+
 security_program = '/home/lunkwill/projects/Lemmy_mod_tools/telegram_security_cam.py'
 
 class TransparentWindow(QWidget):
@@ -123,11 +125,11 @@ class TransparentWindow(QWidget):
         self.showNormal()
         self.activateWindow()
 
-    def toggle_security_from_gui(self, state):
-        if state == Qt.Checked:
-            subprocess.Popen(["python", security_program])
-        else:
-            subprocess.run(["pkill", "-f", security_program])
+    # def toggle_security_from_gui(self, state):
+    #     if state == Qt.Checked:
+    #         subprocess.Popen(["python", security_program])
+    #     else:
+    #         subprocess.run(["pkill", "-f", security_program])
 
     def mousePressEvent(self, event):
         if event.button() == Qt.LeftButton:
