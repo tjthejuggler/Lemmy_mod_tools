@@ -20,7 +20,7 @@ def fetch_latest_post_info(community_id, excluded_title="Bioacoustics Resources"
     lemmy_instance = Lemmy("https://lemmy.world")
 
     # Fetch the latest posts from the community
-    posts_data = lemmy_instance.post.list(community_id=community_id, sort='New', page=1, limit=5)
+    posts_data = lemmy_instance.post.list(community_id=community_id, sort='Hot', page=1, limit=5)
 
     if 'posts' in posts_data:
         for post_data in posts_data['posts']:

@@ -43,26 +43,13 @@ def create_new_banner(prompt):
     # create a list of prompts
     prompt_list = []
     prompt_list.append(prompt)
-    # prompt_list.append("photo of a man sitting in a cafe")
-    # prompt_list.append("photo of a woman standing in the middle of a busy street")
-    # prompt_list.append("drawing of a cat sitting in a tree")
-    # prompt_list.append("beautiful scenery nature glass bottle landscape, purple galaxy bottle")
 
-    # # give some easy-to-remember names to the nodes
     # chkpoint_loader_node = prompt_workflow["4"]
     prompt_pos_node = prompt_workflow["6"]
     # empty_latent_img_node = prompt_workflow["5"]
     ksampler_node = prompt_workflow["3"]
     save_image_node = prompt_workflow["9"]
 
-    # # load the checkpoint that we want. 
-    # chkpoint_loader_node["inputs"]["ckpt_name"] = "SD1-5/sd_v1-5_vae.ckpt"
-
-    # # set image dimensions and batch size in EmptyLatentImage node
-    # empty_latent_img_node["inputs"]["width"] = 512
-    # empty_latent_img_node["inputs"]["height"] = 640
-    # # each prompt will produce a batch of 4 images
-    # empty_latent_img_node["inputs"]["batch_size"] = 4
     filepaths = []
     # for every prompt in prompt_list...
     for index, prompt in enumerate(prompt_list):
@@ -75,13 +62,6 @@ def create_new_banner(prompt):
         # set a random seed in KSampler node 
         ksampler_node["inputs"]["seed"] = seed
 
-        #   # if it is the last prompt
-        #   if index == 3:
-        #     # set latent image height to 768
-        #     empty_latent_img_node["inputs"]["height"] = 768
-
-        # set filename prefix to be the same as prompt
-        # (truncate to first 100 chars if necessary)
         fileprefix = prompt.replace(" ", "_")
         if len(fileprefix) > 80:
             fileprefix = fileprefix[:80]
@@ -133,3 +113,5 @@ def create_new_icon(incoming_text):
     queue_prompt(prompt_workflow)
 
     #return filepaths
+
+#create_new_banner("Bioacoustics Resources")

@@ -3,6 +3,8 @@ import subprocess
 import asyncio
 from telegram import Bot
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters
+import requests
+import time
 
 import change_banner_if_new_post
 import change_db_icon
@@ -44,7 +46,9 @@ async def echo(update, context, window):
         await update.message.reply_text("Icon updated successfully!")
     elif received_text.lower().startswith("v"):
         try:
-            volume_control.set_volume(int(received_text[2:]))
+            #remove any character that is not a number
+            received_text = "".join([c for c in received_text if c.isdigit()])
+            volume_control.set_volume(int(received_text))
         except:
             pass
     elif received_text.lower() == "s":
@@ -63,7 +67,23 @@ async def echo(update, context, window):
     if window:
         window.update_message("Message received: " + received_text)
 
+def check_internet():
+    url='http://www.google.com/'
+    timeout=5
+    try:
+        _ = requests.get(url, timeout=timeout)
+        return True
+    except requests.ConnectionError:
+        print("No internet connection available.")
+    return False
+
 def run_telegram_bot(window):
+
+    while not check_internet():
+        print("Waiting for internet connection...")
+        time.sleep(5)  # Wait for 5 seconds before checking again
+
+
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
 

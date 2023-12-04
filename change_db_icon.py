@@ -26,7 +26,7 @@ def fetch_latest_post_info(community_id, excluded_title="Bioacoustics Resources"
     lemmy_instance = Lemmy("https://lemmy.world")
 
     # Fetch the latest posts from the community
-    posts_data = lemmy_instance.post.list(community_id=community_id, sort='New', page=1, limit=5)
+    posts_data = lemmy_instance.post.list(community_id=community_id, sort='Hot', page=1, limit=5)
 
     if 'posts' in posts_data:
         for post_data in posts_data['posts']:
@@ -65,7 +65,7 @@ def get_animal_from_post_title(post_title, force_animal=None):
             # if LMstudio_is_already_running == False:
             #     print("starting server")
             #     LMstudio_RPA.start_server()
-            title_subject = ask_local_llm.send_prompt_to_llm_litellm(post_title, system_prompt)
+            title_subject = ask_local_llm.send_prompt_to_llm(post_title, system_prompt)
             orca_mini = subprocess.Popen(["ollama", "run", "orca-mini:3b"], preexec_fn=os.setsid)
             time.sleep(5)
             orca_mini.kill()
