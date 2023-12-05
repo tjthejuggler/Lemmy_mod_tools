@@ -2,6 +2,7 @@ import time
 from lemmy import Lemmy
 import os
 import telegram_service
+import asyncio
 
 def read_last_known_post_id(file_path):
     if os.path.exists(file_path):
@@ -32,17 +33,25 @@ def fetch_second_hottest_post_info(community_id, excluded_title="Bioacoustics Re
     return None, None
 
 def start_post_checker():
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
     community_id = 78581  # Your community ID
     last_known_id_file_path = '/home/lunkwill/projects/Lemmy_mod_tools/last_post_id.txt'
     last_known_post_id = read_last_known_post_id(last_known_id_file_path)
 
     while True:
         second_hottest_post_id, second_hottest_post_title = fetch_second_hottest_post_info(community_id)
-        #print("second_hottest_post_title:", second_hottest_post_title)
+        print("second_hottest_post_title:", second_hottest_post_title)
         if second_hottest_post_id and second_hottest_post_id != last_known_post_id:
             print("The second hottest post has changed.")
-            telegram_service.send_telegram_text_as_me_to_bot("The second hottest post has changed.")
-            telegram_service.send_telegram_text_as_me_to_bot("u")
+            coro = telegram_service.send_telegram_text_as_me_to_bot("The second hottest post has changed.")
+            loop.run_until_complete(coro)
+
+            coro2 = telegram_service.send_telegram_text_as_me_to_bot("U")
+            loop.run_until_complete(coro2)
+            #loop.run_until_complete(telegram_service.send_telegram_text_as_me_to_bot("U"))
+            #telegram_service.send_telegram_text_as_me_to_bot("The second hottest post has changed.")
+            #telegram_service.send_telegram_text_as_me_to_bot("u")
             # Update the last known post ID
             write_last_known_post_id(last_known_id_file_path, second_hottest_post_id)
         time.sleep(60)  # Check every minute
