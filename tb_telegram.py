@@ -33,9 +33,12 @@ async def echo(update, context, window):
         await update.message.reply_text("Updating icon...")
         change_db_icon.update_icon_if_new_post()
         await update.message.reply_text("Icon updated successfully!")
-    elif received_text.lower() == "ub":
+    elif received_text.lower().startswith("ub"):
         await update.message.reply_text("Updating banner...")
-        change_banner_if_new_post.update_banner_if_new_post()
+        if len(received_text.split(" ")) > 1:
+            change_banner_if_new_post.update_banner_if_new_post(" ".join(received_text.split(" ")[1:]))          
+        else:
+            change_banner_if_new_post.update_banner_if_new_post()
         await update.message.reply_text("Banner updated successfully!")
     elif received_text.lower().startswith("ui"):        
         await update.message.reply_text("Updating icon...")
@@ -67,23 +70,7 @@ async def echo(update, context, window):
     if window:
         window.update_message("Message received: " + received_text)
 
-def check_internet():
-    url='http://www.google.com/'
-    timeout=5
-    try:
-        _ = requests.get(url, timeout=timeout)
-        return True
-    except requests.ConnectionError:
-        print("No internet connection available.")
-    return False
-
 def run_telegram_bot(window):
-
-    while not check_internet():
-        print("Waiting for internet connection...")
-        time.sleep(5)  # Wait for 5 seconds before checking again
-
-
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
 

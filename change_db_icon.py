@@ -60,12 +60,14 @@ def get_animal_from_post_title(post_title, force_animal=None):
         local_failed = False
         try:
             print('trying')
-            system_prompt = "You are an information parser. You follow directions exactly. You only ever say a single animal name with no special characters or punctuation. You receive the title of an article. You respond with a type of animal that the article is about."
+            system_prompt = "You are an information parser. You only ever respond with a single animal name with no special characters or punctuation. You receive the title of an article. You respond with a type of animal that the article is about. You follow directions precisely."
             #LMstudio_is_already_running = LMstudio_RPA.is_server_running()
             # if LMstudio_is_already_running == False:
             #     print("starting server")
             #     LMstudio_RPA.start_server()
-            title_subject = ask_local_llm.send_prompt_to_llm(post_title, system_prompt)
+            ask_local_llm.connect_to_llm()
+            llm_prompt = ("Respond with a single type on animal and no punctuation. What animal might an article with the title '"+post_title+"' be about? Respond only with the name of the animal.")
+            title_subject = ask_local_llm.send_prompt_to_llm(llm_prompt, system_prompt)
             orca_mini = subprocess.Popen(["ollama", "run", "orca-mini:3b"], preexec_fn=os.setsid)
             time.sleep(5)
             orca_mini.kill()
@@ -80,7 +82,7 @@ def get_animal_from_post_title(post_title, force_animal=None):
             local_failed = True
         #title_subject_num_words = len(title_subject.split(" "))
         if (local_failed == True):
-            gpt_prompt = ("Respond with a single type on animal and no punctuation. What animal might an article with the title '"+post_title+"' be about?")
+            gpt_prompt = ("Respond with a single type on animal and no punctuation. What animal might an article with the title '"+post_title+"' be about? Respond only with the name of the animal.")
             title_subject = ask_chatGPT.send_request(gpt_prompt)
             title_subject = title_subject.strip()
             print("title_subject from chatGPT", title_subject)

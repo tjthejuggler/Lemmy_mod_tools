@@ -17,7 +17,7 @@ import json
 
 # Start the process
 
-process = subprocess.Popen(["litellm", "--model", "ollama/mistral"], preexec_fn=os.setsid)
+process = subprocess.Popen(["litellm", "--model", "ollama/neural-chat:7b-v3.2-fp16"], preexec_fn=os.setsid)
 
 system_prompt = None
 user_prompt = "what is the largest animal in the world?"

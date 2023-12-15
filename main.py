@@ -2,12 +2,31 @@ from PyQt5.QtWidgets import QApplication
 from PyQt5.QtGui import QIcon
 import threading
 import sys
+import time
+import requests
 
 import tb_gui
 import tb_telegram
 import db_post_checker
 
+
+
+def check_internet():
+    url='http://www.google.com/'
+    timeout=5
+    try:
+        _ = requests.get(url, timeout=timeout)
+        return True
+    except requests.ConnectionError:
+        print("No internet connection available.")
+    return False
+
 def main():
+
+    while not check_internet():
+        print("Waiting for internet connection...")
+        time.sleep(5)  # Wait for 5 seconds before checking again
+
     global window
     app = QApplication(sys.argv)
     icon_path = '/home/lunkwill/projects/Lemmy_mod_tools/full_ballshead_down.png'

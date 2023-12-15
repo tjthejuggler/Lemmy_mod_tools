@@ -32,7 +32,7 @@ def fetch_latest_post_info(community_id, excluded_title="Bioacoustics Resources"
 
     return None, None
 
-def update_banner_if_new_post():
+def update_banner_if_new_post(forced_banner_prompt=None):
     community_id = 78581  # Your community ID
     # last_known_id_file_path = '/home/lunkwill/projects/Lemmy_mod_tools/last_post_id.txt'
     # last_known_post_id = read_last_known_post_id(last_known_id_file_path)
@@ -46,7 +46,10 @@ def update_banner_if_new_post():
     files_before = os.listdir(output_dir)
     print("files_before_IF", str(len(files_before)))
 
-    python_comfy.create_new_banner(latest_post_title)
+    if forced_banner_prompt:
+        python_comfy.create_new_banner(forced_banner_prompt)
+    else:
+        python_comfy.create_new_banner(latest_post_title)
     # while not os.path.exists(banner_filepath):
     #     print("Waiting for banner to be created...")
     #     time.sleep(1)

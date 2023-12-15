@@ -4,18 +4,22 @@ import subprocess
 import time
 import os
 
+def connect_to_llm():
+    subprocess.Popen(["litellm", "--model", "ollama/mistral"], preexec_fn=os.setsid)
+    time.sleep(10)
+    
 #you have to run this command in terminal- litellm --model ollama/mistral
 def send_prompt_to_llm(user_prompt, system_prompt = None):
-    url = "http://0.0.0.0:8000"
-    # Check if the server is running
-    try:
-        response = requests.get(url)
-        if response.status_code == 200:
-            print("Server is running")            
-    except requests.exceptions.RequestException as err:
-        print("litellm ollama/mistral server is not running, starting it now...")
-        subprocess.Popen(["litellm", "--model", "ollama/mistral"], preexec_fn=os.setsid)
-        time.sleep(10)
+    #url = "http://0.0.0.0:8000"
+    # # Check if the server is running
+    # try:
+    #     response = requests.get(url)
+    #     if response.status_code == 200:
+    #         print("Server is running")            
+    # except requests.exceptions.RequestException as err:
+    #     print("litellm ollama/mistral server is not running, starting it now...")
+    #     subprocess.Popen(["litellm", "--model", "ollama/mistral"], preexec_fn=os.setsid)
+    #     time.sleep(10)
     #either just send the user_prompt or send the user_prompt and system_prompt if there is one
     url = "http://0.0.0.0:8000/chat/completions"
     headers = {"Content-Type": "application/json"}

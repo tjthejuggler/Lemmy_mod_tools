@@ -29,11 +29,17 @@ def queue_prompt(prompt_workflow):
             files_after = os.listdir(output_dir)
             print("files_after", str(len(files_after)))
             if len(files_after) > len(files_before):
+                print("breaking")
                 break
             time.sleep(1)  # Check every second
+        print("files_after break finished", str(len(files_after)))
         time.sleep(10)
-        subprocess.run(["pkill", "-f", "/home/lunkwill/projects/ComfyUI/main.py"], check=True)
-        print("Server process terminated.")
+        try:
+            subprocess.run(["pkill", "-f", "/home/lunkwill/projects/ComfyUI/main.py"], check=True)
+        except subprocess.CalledProcessError:
+            print("Failed to terminate server process.")
+        else:
+            print("Server process terminated.")
 
 def create_new_banner(prompt):
     # read workflow api data from file and convert it into dictionary 
@@ -76,10 +82,13 @@ def create_new_banner(prompt):
     #return filepaths
 
 def create_new_icon(incoming_text):
-    prompt = "realistic "+incoming_text+", spectrogram waveform, music visualizer, white spheres background, detailed, white circles"
+    #prompt = "realistic "+incoming_text+", detailed "+incoming_text+", animal picture, spectrogram waveform, music visualizer, white spheres background, detailed, white circles"
+
+    prompt = "(realistic "+incoming_text+":1.4), (detailed "+incoming_text+":1.4), animal picture, spectrogram waveform, music visualizer, white spheres background, detailed, white circles"
     # read workflow api data from file and convert it into dictionary 
     # assign to var prompt_workflow
-    prompt_workflow = json.load(open('/home/lunkwill/projects/Lemmy_mod_tools/db_icon_new_api.json'))
+    #prompt_workflow = json.load(open('/home/lunkwill/projects/Lemmy_mod_tools/db_icon_new_api.json'))
+    prompt_workflow = json.load(open('/home/lunkwill/projects/Lemmy_mod_tools/db_icon_api_v2.json'))
 
     # create a list of prompts
     prompt_list = []

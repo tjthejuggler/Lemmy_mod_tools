@@ -37,11 +37,12 @@ def start_post_checker():
     asyncio.set_event_loop(loop)
     community_id = 78581  # Your community ID
     last_known_id_file_path = '/home/lunkwill/projects/Lemmy_mod_tools/last_post_id.txt'
-    last_known_post_id = read_last_known_post_id(last_known_id_file_path)
+    
 
     while True:
         second_hottest_post_id, second_hottest_post_title = fetch_second_hottest_post_info(community_id)
         print("second_hottest_post_title:", second_hottest_post_title)
+        last_known_post_id = read_last_known_post_id(last_known_id_file_path)
         if second_hottest_post_id and second_hottest_post_id != last_known_post_id:
             print("The second hottest post has changed.")
             coro = telegram_service.send_telegram_text_as_me_to_bot("The second hottest post has changed.")
