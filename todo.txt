@@ -1,3 +1,6 @@
+12/15
+if i try to dropbox an image that has already been dropboxed then it crashes instead of just going along with things.
+
 11/30
 make security camera work more in real time
 if it isnt active, then it should slowly fade and then close itself

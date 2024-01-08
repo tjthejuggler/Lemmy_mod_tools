@@ -12,6 +12,15 @@ import change_db_icon
 security_program = '/home/lunkwill/projects/Lemmy_mod_tools/telegram_security_cam.py'
 security_program_running = False
 
+llm_program = '/home/lunkwill/projects/Lemmy_mod_tools/llm_personal_assistant/main.py'
+
+def run_program(llm_program, received_text):
+    result = subprocess.run(["python", llm_program, received_text], capture_output=True, text=True)
+    if result.returncode != 0:
+        print(f"Error: {result.stderr}")
+    else:
+        return result.stdout
+
 async def start(update, context):
     await update.message.reply_text('Hello! Send me a command.')
 
@@ -26,35 +35,35 @@ async def echo(update, context, window):
         subprocess.run(["paplay", "/home/lunkwill/projects/Lemmy_mod_tools/sounds/black_grouse_notification_mod.wav"], check=True)
 
     print(f"Received text: {received_text}")
-    if received_text.lower() == "u":
+    if received_text.lower() == ".u":
         await update.message.reply_text("Updating banner...")
         change_banner_if_new_post.update_banner_if_new_post()
         await update.message.reply_text("Banner updated successfully!")
         await update.message.reply_text("Updating icon...")
         change_db_icon.update_icon_if_new_post()
         await update.message.reply_text("Icon updated successfully!")
-    elif received_text.lower().startswith("ub"):
+    elif received_text.lower().startswith(".ub"):
         await update.message.reply_text("Updating banner...")
         if len(received_text.split(" ")) > 1:
             change_banner_if_new_post.update_banner_if_new_post(" ".join(received_text.split(" ")[1:]))          
         else:
             change_banner_if_new_post.update_banner_if_new_post()
         await update.message.reply_text("Banner updated successfully!")
-    elif received_text.lower().startswith("ui"):        
+    elif received_text.lower().startswith(".ui"):        
         await update.message.reply_text("Updating icon...")
         if len(received_text.split(" ")) > 1:
             change_db_icon.update_icon_if_new_post(" ".join(received_text.split(" ")[1:]))          
         else:
             change_db_icon.update_icon_if_new_post()
         await update.message.reply_text("Icon updated successfully!")
-    elif received_text.lower().startswith("v"):
+    elif received_text.lower().startswith(".v"):
         try:
             #remove any character that is not a number
             received_text = "".join([c for c in received_text if c.isdigit()])
             volume_control.set_volume(int(received_text))
         except:
             pass
-    elif received_text.lower() == "s":
+    elif received_text.lower() == ".s":
         security_program_running = not security_program_running
         if security_program_running:
             subprocess.Popen(["python", security_program])
@@ -63,8 +72,16 @@ async def echo(update, context, window):
 
         if window:
             window.update_checkbox_state(security_program_running)
-    
-    await update.message.reply_text(received_text+"\nu - update banner\nv - toggle volume("+str(volume_control.get_volume())+")\ns - toggle security program(tem_bot")
+    elif received_text.lower() == ".x":
+        #shutdown laptop
+        subprocess.run(["shutdown", "-h", "now"], check=True)
+    else:
+        #subprocess.Popen(["python", llm_program, '"'+received_text+'"'])
+        if not received_text == "The second hottest post has changed.":
+            response = run_program(llm_program, received_text)
+            trimmed_response = response.split("########################")[2]
+            received_text = trimmed_response
+    await update.message.reply_text(received_text+"\n.u - update banner\n.v - toggle volume("+str(volume_control.get_volume())+")\n.s - toggle security program\n.x - shutdown laptop")
 
     # Update GUI
     if window:

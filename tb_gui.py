@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QCheckBox, QSystemTrayIcon, QMenu
 from PyQt5.QtGui import QPixmap, QIcon
-from PyQt5.QtCore import Qt, QPoint
+from PyQt5.QtCore import Qt, QPoint, QTimer
 from PIL import Image
 import os
 import random
@@ -76,6 +76,17 @@ class TransparentWindow(QWidget):
         self.close_btn.resize(50, 50)
         self.close_btn.move(int(self.width()/2)-25, 500)
 
+        # Initialize close timer
+        self.close_timer = QTimer()
+        self.close_timer.setSingleShot(True)
+        self.close_timer.timeout.connect(self.quit_application)
+        self.close_timer.setInterval(2000)  # Set the timer for 2 seconds
+
+        # Modify the close button events
+        self.close_btn.mousePressEvent = self.start_close_timer
+        self.close_btn.mouseReleaseEvent = self.stop_close_timer
+
+
         # Style for the close button
         self.close_btn.setStyleSheet("""
             QPushButton {
@@ -113,6 +124,19 @@ class TransparentWindow(QWidget):
         restore_action.triggered.connect(self.showNormal)
         quit_action.triggered.connect(QApplication.quit)
         self.tray_icon.show()
+
+    def start_close_timer(self, event):
+        self.close_timer.start()  # Start the 2-second timer
+        QPushButton.mousePressEvent(self.close_btn, event)  # Call original event
+
+    def stop_close_timer(self, event):
+        if self.close_timer.isActive():
+            self.close_timer.stop()  # Stop the timer if it's still running
+            self.hide()  # Minimize to system tray
+        QPushButton.mouseReleaseEvent(self.close_btn, event)  # Call original event
+
+    def quit_application(self):
+        QApplication.quit()  # Quit the application
 
     def tray_icon_activated(self, reason):
         if reason == QSystemTrayIcon.MiddleClick:
