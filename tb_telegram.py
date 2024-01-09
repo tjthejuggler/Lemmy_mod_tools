@@ -34,13 +34,14 @@ async def echo(update, context, window):
         #make a sound that indicates a text has been received
         subprocess.run(["paplay", "/home/lunkwill/projects/Lemmy_mod_tools/sounds/black_grouse_notification_mod.wav"], check=True)
 
+    icon_prompt = None
     print(f"Received text: {received_text}")
     if received_text.lower() == ".u":
         await update.message.reply_text("Updating banner...")
         change_banner_if_new_post.update_banner_if_new_post()
         await update.message.reply_text("Banner updated successfully!")
         await update.message.reply_text("Updating icon...")
-        change_db_icon.update_icon_if_new_post()
+        icon_prompt = change_db_icon.update_icon_if_new_post()
         await update.message.reply_text("Icon updated successfully!")
     elif received_text.lower().startswith(".ub"):
         await update.message.reply_text("Updating banner...")
@@ -52,9 +53,13 @@ async def echo(update, context, window):
     elif received_text.lower().startswith(".ui"):        
         await update.message.reply_text("Updating icon...")
         if len(received_text.split(" ")) > 1:
-            change_db_icon.update_icon_if_new_post(" ".join(received_text.split(" ")[1:]))          
+            icon_prompt = change_db_icon.update_icon_if_new_post(" ".join(received_text.split(" ")[1:]))          
         else:
-            change_db_icon.update_icon_if_new_post()
+            if received_text.lower().startswith(".uix"):
+                print(".uix")
+                icon_prompt = change_db_icon.update_icon_if_new_post("replace")
+            else:
+                icon_prompt = change_db_icon.update_icon_if_new_post()
         await update.message.reply_text("Icon updated successfully!")
     elif received_text.lower().startswith(".v"):
         try:
@@ -79,9 +84,23 @@ async def echo(update, context, window):
         #subprocess.Popen(["python", llm_program, '"'+received_text+'"'])
         if not received_text == "The second hottest post has changed.":
             response = run_program(llm_program, received_text)
-            trimmed_response = response.split("########################")[2]
-            received_text = trimmed_response
-    await update.message.reply_text(received_text+"\n.u - update banner\n.v - toggle volume("+str(volume_control.get_volume())+")\n.s - toggle security program\n.x - shutdown laptop")
+            if response and "########################" in response:
+                trimmed_response = response.split("########################")[2]
+                received_text = trimmed_response
+    response = ""
+    if icon_prompt:
+        response = "icon prompt:" + icon_prompt +"\n"
+    response += received_text
+    await update.message.reply_text(response+"""\n
+    .u - update banner and icon\n
+    .ub - update banner\n
+    .ui - update icon\n
+    .ui bird - update icon with prompt bird\n
+    .uix - update icon and del current prompt\n
+    .v - toggle volume("+str(volume_control.get_volume())+")\n
+    .s - toggle security program\n
+    .x - shutdown laptop\n
+    say anything else and bot responds""")
 
     # Update GUI
     if window:

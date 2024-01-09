@@ -1,3 +1,7 @@
+1/8/24
+
+setting the volume to a random value doesnt work, it needs to have a setup where we have a bot break it down into multiple steps that it is able to do. it should even be able to build a random number generator and execute it if it needs to.
+
 12/15
 if i try to dropbox an image that has already been dropboxed then it crashes instead of just going along with things.
 
