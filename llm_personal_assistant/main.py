@@ -11,6 +11,15 @@ from dotenv import load_dotenv
 
 import sys
 
+# run this terminal command in python code: pip install --upgrade pydantic
+# import subprocess
+
+# def install_pydantic():
+#     subprocess.run(["pip", "install", "--upgrade", "pydantic"], check=True)
+#     print("installed pydantic")
+# install_pydantic()
+
+
 load_dotenv()
 
 class FinancialCrew:

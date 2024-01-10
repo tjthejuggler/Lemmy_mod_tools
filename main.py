@@ -9,7 +9,12 @@ import tb_gui
 import tb_telegram
 import db_post_checker
 
+import subprocess
 
+def install_pydantic():
+    subprocess.run(["pip", "install", "--upgrade", "pydantic"], check=True)
+    print("installed pydantic")
+install_pydantic()
 
 def check_internet():
     url='http://www.google.com/'
