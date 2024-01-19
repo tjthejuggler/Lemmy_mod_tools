@@ -79,6 +79,49 @@ def update_banner_if_new_post(forced_banner_prompt=None):
     #     print("No new posts found.")
 
 
+def update_banner_if_new_post_based_on_icon():
+    community_id = 78581  # Your community ID
+    # last_known_id_file_path = '/home/lunkwill/projects/Lemmy_mod_tools/last_post_id.txt'
+    # last_known_post_id = read_last_known_post_id(last_known_id_file_path)
+
+    latest_post_id, latest_post_title = fetch_latest_post_info(community_id)
+    # print("Latest post ID:", latest_post_id)
+    # print("Latest post title:", latest_post_title)
+    # print("Last known post ID:", last_known_post_id)
+    # if latest_post_id and latest_post_id != last_known_post_id:
+    output_dir = "/home/lunkwill/projects/ComfyUI/output"
+    files_before = os.listdir(output_dir)
+    print("files_before_IF based on icon", str(len(files_before)))
+
+    python_comfy.create_new_banner_based_on_icon(latest_post_title)
+    # while not os.path.exists(banner_filepath):
+    #     print("Waiting for banner to be created...")
+    #     time.sleep(1)
+    while True:
+        
+        files_after = os.listdir(output_dir)
+        print("files_after_IF", str(len(files_after)))
+        if len(files_after) > len(files_before):
+            break
+        time.sleep(1)  # Check every second
+
+    #remove all files in files_after that are in files_before
+    files_after = [x for x in files_after if x not in files_before]
+    banner_filepath = os.path.join(output_dir, files_after[0])
+
+    print("banner_filepath", banner_filepath)
+    banner_url = dropbox_image_uploader.upload_image(banner_filepath)
+    #wait for the image to be uploaded
+    while not banner_url:
+        print("Waiting for banner based on icon to be uploaded...")
+        time.sleep(1)
+    print("banner_url based on icon", banner_url)
+    set_community_banner.update_banner(banner_url)
+    #write_last_known_post_id(last_known_id_file_path, latest_post_id)
+    print("Banner based on icon updated successfully!")
+    # else:
+    #     print("No new posts found.")
+
 if __name__ == '__main__':
     update_banner_if_new_post()
 

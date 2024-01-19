@@ -22,7 +22,7 @@ import sys
 
 load_dotenv()
 
-class FinancialCrew:
+class FinancialCrew: #this needs changed
   def __init__(self, input):
     self.input = input
 
@@ -34,8 +34,12 @@ class FinancialCrew:
     # financial_analyst_agent = agents.financial_analyst()
     # investment_advisor_agent = agents.investment_advisor()
     personal_assistant = agents.personal_assistant()
+    goodbye_assistant = agents.goodbye_assistant()
+    #secretary = agents.secretary()
 
+    #respond_task = tasks.respond(personal_assistant, self.input)
     respond_task = tasks.respond(personal_assistant, self.input)
+    goodbye_task = tasks.goodbye(goodbye_assistant)
     # research_task = tasks.research(research_analyst_agent, self.company)
     # financial_task = tasks.financial_analysis(financial_analyst_agent)
     # filings_task = tasks.filings_analysis(financial_analyst_agent)
@@ -47,6 +51,8 @@ class FinancialCrew:
         # financial_analyst_agent,
         # investment_advisor_agent
         personal_assistant
+        
+        #secretary
       ],
       tasks=[
         # research_task,
@@ -54,11 +60,36 @@ class FinancialCrew:
         # filings_task,
         # recommend_task
         respond_task
+        
+      ],
+      verbose=True
+    )
+
+
+
+    crew2 = Crew(
+      agents=[
+        # research_analyst_agent,
+        # financial_analyst_agent,
+        # investment_advisor_agent
+        
+        goodbye_assistant
+        #secretary
+      ],
+      tasks=[
+        # research_task,
+        # financial_task,
+        # filings_task,
+        # recommend_task
+        
+        goodbye_task
       ],
       verbose=True
     )
 
     result = crew.kickoff()
+    result = result+"\n"
+    result = result+crew2.kickoff()
     return result
 
 if __name__ == "__main__":

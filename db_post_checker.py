@@ -18,7 +18,7 @@ def fetch_second_hottest_post_info(community_id, excluded_title="Bioacoustics Re
     lemmy_instance = Lemmy("https://lemmy.world")
 
     # Fetch the hottest posts from the community
-    posts_data = lemmy_instance.post.list(community_id=community_id, sort='Hot', page=1, limit=5)
+    posts_data = lemmy_instance.post.list(community_id=community_id, sort='Active', page=1, limit=5)
 
     if 'posts' in posts_data:
         # Skip the first post and get the second post
@@ -41,11 +41,11 @@ def start_post_checker():
 
     while True:
         second_hottest_post_id, second_hottest_post_title = fetch_second_hottest_post_info(community_id)
-        print("second_hottest_post_title:", second_hottest_post_title)
+        print("second_activest_post_title:", second_hottest_post_title)
         last_known_post_id = read_last_known_post_id(last_known_id_file_path)
         if second_hottest_post_id and second_hottest_post_id != last_known_post_id:
-            print("The second hottest post has changed.")
-            coro = telegram_service.send_telegram_text_as_me_to_bot("The second hottest post has changed.")
+            print("The second activest post has changed.")
+            coro = telegram_service.send_telegram_text_as_me_to_bot("The second activest post has changed.")
             loop.run_until_complete(coro)
 
             coro2 = telegram_service.send_telegram_text_as_me_to_bot(".U")

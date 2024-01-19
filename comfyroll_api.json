@@ -1,0 +1,368 @@
+{
+  "1": {
+    "inputs": {
+      "ckpt_name": "sd_xl_base_1.0.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Base XL Model"
+    }
+  },
+  "2": {
+    "inputs": {
+      "stop_at_clip_layer": -1,
+      "clip": [
+        "1",
+        1
+      ]
+    },
+    "class_type": "CLIPSetLastLayer",
+    "_meta": {
+      "title": "CLIP Set Last Layer"
+    }
+  },
+  "6": {
+    "inputs": {
+      "width": [
+        "150",
+        0
+      ],
+      "height": [
+        "150",
+        1
+      ],
+      "batch_size": [
+        "150",
+        3
+      ]
+    },
+    "class_type": "EmptyLatentImage",
+    "_meta": {
+      "title": "Empty Latent Image"
+    }
+  },
+  "8": {
+    "inputs": {
+      "vae_name": "sdxl_vae.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "XL VAE"
+    }
+  },
+  "9": {
+    "inputs": {
+      "filename_prefix": "SDXL\\SDXL10_",
+      "images": [
+        "155",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save Image"
+    }
+  },
+  "10": {
+    "inputs": {
+      "tile_size": 512,
+      "samples": [
+        "156",
+        0
+      ],
+      "vae": [
+        "8",
+        0
+      ]
+    },
+    "class_type": "VAEDecodeTiled",
+    "_meta": {
+      "title": "VAE Decode (Tiled)"
+    }
+  },
+  "37": {
+    "inputs": {
+      "image": "A_frustrated_nature_documentary_director,_holding_a_microphone_and_parrot's_beak_00001_.png",
+      "upload": "image"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "39": {
+    "inputs": {
+      "pixels": [
+        "40",
+        0
+      ],
+      "vae": [
+        "8",
+        0
+      ]
+    },
+    "class_type": "VAEEncode",
+    "_meta": {
+      "title": "VAE Encode"
+    }
+  },
+  "40": {
+    "inputs": {
+      "upscale_method": "nearest-exact",
+      "width": [
+        "150",
+        0
+      ],
+      "height": [
+        "150",
+        1
+      ],
+      "crop": "disabled",
+      "image": [
+        "37",
+        0
+      ]
+    },
+    "class_type": "ImageScale",
+    "_meta": {
+      "title": "Upscale Image"
+    }
+  },
+  "77": {
+    "inputs": {
+      "images": [
+        "10",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Preview Image"
+    }
+  },
+  "83": {
+    "inputs": {
+      "ckpt_name": "sd_xl_refiner_1.0.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Refiner XL Model"
+    }
+  },
+  "91": {
+    "inputs": {
+      "stop_at_clip_layer": -1,
+      "clip": [
+        "83",
+        1
+      ]
+    },
+    "class_type": "CLIPSetLastLayer",
+    "_meta": {
+      "title": "CLIP Set Last Layer"
+    }
+  },
+  "124": {
+    "inputs": {
+      "pos_g": [
+        "160",
+        0
+      ],
+      "pos_l": [
+        "160",
+        0
+      ],
+      "pos_r": [
+        "160",
+        0
+      ],
+      "neg_g": [
+        "160",
+        1
+      ],
+      "neg_l": [
+        "160",
+        1
+      ],
+      "neg_r": [
+        "160",
+        1
+      ],
+      "base_width": 4096,
+      "base_height": 4096,
+      "crop_w": 0,
+      "crop_h": 0,
+      "target_width": 4096,
+      "target_height": 4096,
+      "pos_ascore": 6,
+      "neg_ascore": 2.5,
+      "refiner_width": 2048,
+      "refiner_height": 2048,
+      "base_clip": [
+        "2",
+        0
+      ],
+      "refiner_clip": [
+        "83",
+        1
+      ]
+    },
+    "class_type": "SeargeSDXLPromptEncoder",
+    "_meta": {
+      "title": "XL Prompt Encoder"
+    }
+  },
+  "140": {
+    "inputs": {
+      "Input": "img2img",
+      "txt2img": [
+        "6",
+        0
+      ],
+      "img2img": [
+        "146",
+        0
+      ]
+    },
+    "class_type": "CR Img2Img Process Switch",
+    "_meta": {
+      "title": "Img2Img Process Switch"
+    }
+  },
+  "143": {
+    "inputs": {
+      "sampler_name": "dpmpp_2m",
+      "scheduler": "karras"
+    },
+    "class_type": "SeargeSamplerInputs",
+    "_meta": {
+      "title": "Sampler Settings"
+    }
+  },
+  "146": {
+    "inputs": {
+      "batch_size": [
+        "150",
+        3
+      ],
+      "latent": [
+        "39",
+        0
+      ]
+    },
+    "class_type": "CR Latent Batch Size",
+    "_meta": {
+      "title": "Latent Batch Size"
+    }
+  },
+  "150": {
+    "inputs": {
+      "width": 1200,
+      "height": 300,
+      "aspect_ratio": "custom",
+      "swap_dimensions": "Off",
+      "upscale_factor": 2,
+      "batch_size": 1
+    },
+    "class_type": "CR SDXL Aspect Ratio",
+    "_meta": {
+      "title": "XL Aspect Ratio"
+    }
+  },
+  "152": {
+    "inputs": {
+      "seed": 956524814551380
+    },
+    "class_type": "CR Seed",
+    "_meta": {
+      "title": "Seed"
+    }
+  },
+  "155": {
+    "inputs": {
+      "upscale_model": "RealESRGAN_x2plus.pth",
+      "mode": "resize",
+      "rescale_factor": [
+        "150",
+        2
+      ],
+      "resize_width": 1024,
+      "resampling_method": "lanczos",
+      "supersample": "true",
+      "rounding_modulus": 8,
+      "image": [
+        "10",
+        0
+      ]
+    },
+    "class_type": "CR Upscale Image",
+    "_meta": {
+      "title": "Upscale Image"
+    }
+  },
+  "156": {
+    "inputs": {
+      "noise_seed": [
+        "152",
+        0
+      ],
+      "steps": 40,
+      "cfg": 7,
+      "base_ratio": 0.8,
+      "denoise": 0.77,
+      "refiner_prep_steps": 0,
+      "base_model": [
+        "1",
+        0
+      ],
+      "base_positive": [
+        "124",
+        0
+      ],
+      "base_negative": [
+        "124",
+        1
+      ],
+      "refiner_model": [
+        "83",
+        0
+      ],
+      "refiner_positive": [
+        "124",
+        2
+      ],
+      "refiner_negative": [
+        "124",
+        3
+      ],
+      "latent_image": [
+        "140",
+        0
+      ],
+      "sampler_name": [
+        "143",
+        0
+      ],
+      "scheduler": [
+        "143",
+        1
+      ]
+    },
+    "class_type": "SeargeSDXLSamplerV3",
+    "_meta": {
+      "title": "XL Mix Sampler"
+    }
+  },
+  "160": {
+    "inputs": {
+      "text_positive": "A frustrated nature documentary director, holding a microphone and parrot's beak, fails to capture bird's chirp while sitting next to an animal trainer blowing air through an elephant's trunk, symbolizing the human-made noise chaos in the name of educational entertainment.",
+      "text_negative": "",
+      "milehigh": "Photorealism",
+      "log_prompt": false
+    },
+    "class_type": "MilehighStyler",
+    "_meta": {
+      "title": "SDXL Prompt Styler"
+    }
+  }
+}

@@ -36,13 +36,42 @@ async def echo(update, context, window):
 
     icon_prompt = None
     print(f"Received text: {received_text}")
+    if received_text.lower() == ".h" or received_text.lower() == "help":
+        response = ("""
+    .u - update banner and icon
+    .ub - update banner
+    .ui - update icon
+    .ui bird - update icon with prompt bird
+    .uix - update icon and del current prompt
+    .v - toggle volume("+str(volume_control.get_volume())+")
+    .s - toggle security program
+    .x - shutdown laptop
+    say anything else and bot responds""")
+        await update.message.reply_text(response)
     if received_text.lower() == ".u":
-        await update.message.reply_text("Updating banner...")
-        change_banner_if_new_post.update_banner_if_new_post()
-        await update.message.reply_text("Banner updated successfully!")
         await update.message.reply_text("Updating icon...")
         icon_prompt = change_db_icon.update_icon_if_new_post()
         await update.message.reply_text("Icon updated successfully!")
+
+        # await update.message.reply_text("Updating banner...")
+        # change_banner_if_new_post.update_banner_if_new_post()
+        # await update.message.reply_text("Banner updated successfully!")
+
+        await update.message.reply_text("Updating banner based on icon...")
+        if len(received_text.split(" ")) > 1:
+            change_banner_if_new_post.update_banner_if_new_post_based_on_icon(" ".join(received_text.split(" ")[1:]))          
+        else:
+            change_banner_if_new_post.update_banner_if_new_post_based_on_icon()
+        await update.message.reply_text("Banner based on icon updated successfully!")
+
+    elif received_text.lower().startswith(".ubi"):
+        await update.message.reply_text("Updating banner based on icon...")
+        if len(received_text.split(" ")) > 1:
+            change_banner_if_new_post.update_banner_if_new_post_based_on_icon(" ".join(received_text.split(" ")[1:]))          
+        else:
+            change_banner_if_new_post.update_banner_if_new_post_based_on_icon()
+        await update.message.reply_text("Banner based on icon updated successfully!")
+
     elif received_text.lower().startswith(".ub"):
         await update.message.reply_text("Updating banner...")
         if len(received_text.split(" ")) > 1:
@@ -50,6 +79,7 @@ async def echo(update, context, window):
         else:
             change_banner_if_new_post.update_banner_if_new_post()
         await update.message.reply_text("Banner updated successfully!")
+
     elif received_text.lower().startswith(".ui"):        
         await update.message.reply_text("Updating icon...")
         if len(received_text.split(" ")) > 1:
@@ -82,7 +112,7 @@ async def echo(update, context, window):
         subprocess.run(["shutdown", "-h", "now"], check=True)
     else:
         #subprocess.Popen(["python", llm_program, '"'+received_text+'"'])
-        if not received_text == "The second hottest post has changed.":
+        if not received_text == "The second hottest post has changed." and not received_text == "Finished generating dr. images" and not received_text == "Daily Backup Failed":
             response = run_program(llm_program, received_text)
             if response and "########################" in response:
                 trimmed_response = response.split("########################")[2]
@@ -91,16 +121,7 @@ async def echo(update, context, window):
     if icon_prompt:
         response = "icon prompt:" + icon_prompt +"\n"
     response += received_text
-    await update.message.reply_text(response+"""\n
-    .u - update banner and icon\n
-    .ub - update banner\n
-    .ui - update icon\n
-    .ui bird - update icon with prompt bird\n
-    .uix - update icon and del current prompt\n
-    .v - toggle volume("+str(volume_control.get_volume())+")\n
-    .s - toggle security program\n
-    .x - shutdown laptop\n
-    say anything else and bot responds""")
+    await update.message.reply_text(response)
 
     # Update GUI
     if window:

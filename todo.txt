@@ -1,3 +1,7 @@
+1/10/24
+
+i could have a secretary that determines if the text coming in is a command, an information check, or part of an ongoing interaction.
+
 1/8/24
 
 setting the volume to a random value doesnt work, it needs to have a setup where we have a bot break it down into multiple steps that it is able to do. it should even be able to build a random number generator and execute it if it needs to.

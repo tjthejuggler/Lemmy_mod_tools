@@ -1,0 +1,102 @@
+** ComfyUI startup time: 2024-01-19 19:24:10.944860
+[2024-01-19 19:24] ** Platform: Linux
+[2024-01-19 19:24] ** Python version: 3.10.10 (main, Mar 21 2023, 18:45:11) [GCC 11.2.0]
+[2024-01-19 19:24] ** Python executable: /home/lunkwill/miniconda3/bin/python
+[2024-01-19 19:24] ** Log path: /home/lunkwill/projects/Lemmy_mod_tools/comfyui.log
+[2024-01-19 19:24] 
+Prestartup times for custom nodes:
+[2024-01-19 19:24]    0.0 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/ComfyUI-Manager
+[2024-01-19 19:24] 
+[2024-01-19 19:24] Total VRAM 16079 MB, total RAM 63991 MB
+[2024-01-19 19:24] xformers version: 0.0.20
+[2024-01-19 19:24] Set vram state to: NORMAL_VRAM
+[2024-01-19 19:24] Device: cuda:0 NVIDIA GeForce RTX 4090 Laptop GPU : cudaMallocAsync
+[2024-01-19 19:24] VAE dtype: torch.bfloat16
+[2024-01-19 19:24] Using xformers cross attention
+[2024-01-19 19:24] Searge-SDXL v4.3.1 in /home/lunkwill/projects/ComfyUI/custom_nodes/SeargeSDXL
+[2024-01-19 19:24] Traceback (most recent call last):
+  File "/home/lunkwill/projects/ComfyUI/nodes.py", line 1872, in load_custom_node
+    module_spec.loader.exec_module(module)
+  File "<frozen importlib._bootstrap_external>", line 883, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/home/lunkwill/projects/ComfyUI/custom_nodes/was-node-suite-comfyui-main/__init__.py", line 1, in <module>
+    from .WAS_Node_Suite import NODE_CLASS_MAPPINGS
+  File "/home/lunkwill/projects/ComfyUI/custom_nodes/was-node-suite-comfyui-main/WAS_Node_Suite.py", line 37, in <module>
+    from numba import jit
+  File "/home/lunkwill/.local/lib/python3.10/site-packages/numba/__init__.py", line 42, in <module>
+    from numba.np.ufunc import (vectorize, guvectorize, threading_layer,
+  File "/home/lunkwill/.local/lib/python3.10/site-packages/numba/np/ufunc/__init__.py", line 3, in <module>
+    from numba.np.ufunc.decorators import Vectorize, GUVectorize, vectorize, guvectorize
+  File "/home/lunkwill/.local/lib/python3.10/site-packages/numba/np/ufunc/decorators.py", line 3, in <module>
+    from numba.np.ufunc import _internal
+SystemError: initialization of _internal failed without raising an exception
+[2024-01-19 19:24] 
+[2024-01-19 19:24] Cannot import /home/lunkwill/projects/ComfyUI/custom_nodes/was-node-suite-comfyui-main module for custom nodes: initialization of _internal failed without raising an exception
+[2024-01-19 19:24] ------------------------------------------
+[2024-01-19 19:24] [34mComfyroll Studio v1.73 : [92m 170 Nodes Loaded[0m
+[2024-01-19 19:24] ------------------------------------------
+[2024-01-19 19:24] ** For changes, please see patch notes at https://github.com/Suzie1/ComfyUI_Comfyroll_CustomNodes/blob/main/Patch_Notes.md
+[2024-01-19 19:24] ** For help, please see the wiki at https://github.com/Suzie1/ComfyUI_Comfyroll_CustomNodes/wiki
+[2024-01-19 19:24] ------------------------------------------
+/home/lunkwill/projects/ComfyUI/custom_nodes/comfyui_controlnet_aux/node_wrappers/dwpose.py:24: UserWarning: DWPose: Onnxruntime not found or doesn't come with acceleration providers, switch to OpenCV with CPU device. DWPose might run very slowly
+  warnings.warn("DWPose: Onnxruntime not found or doesn't come with acceleration providers, switch to OpenCV with CPU device. DWPose might run very slowly")
+[2024-01-19 19:24] ### Loading: ComfyUI-Impact-Pack (V4.66.4)
+[2024-01-19 19:24] ### Loading: ComfyUI-Impact-Pack (Subpack: V0.4)
+[2024-01-19 19:24] [Impact Pack] Wildcards loading done.
+[2024-01-19 19:24] ### Loading: ComfyUI-Manager (V2.2.3)
+[2024-01-19 19:24] ### ComfyUI Revision: 1917 [d76a04b6] | Released on '2024-01-17'
+[2024-01-19 19:24] FETCH DATA from: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json
+[2024-01-19 19:24] FETCH DATA from: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json
+[2024-01-19 19:24] FETCH DATA from: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json
+[2024-01-19 19:24] FETCH DATA from: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/alter-list.json
+[2024-01-19 19:24] [36mEfficiency Nodes:[0m Attempting to add Control Net options to the 'HiRes-Fix Script' Node (comfyui_controlnet_aux add-on)...[92mSuccess![0m
+[2024-01-19 19:24] 
+Import times for custom nodes:
+[2024-01-19 19:24]    0.0 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/image-resize-comfyui
+[2024-01-19 19:24]    0.0 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/comfyui-tooling-nodes
+[2024-01-19 19:24]    0.0 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/masquerade-nodes-comfyui
+[2024-01-19 19:24]    0.0 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/style_aligned_comfy
+[2024-01-19 19:24]    0.0 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/ComfyUI_IPAdapter_plus
+[2024-01-19 19:24]    0.0 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/comfy_PoP
+[2024-01-19 19:24]    0.0 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/ComfyUI_UltimateSDUpscale
+[2024-01-19 19:24]    0.0 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/efficiency-nodes-comfyui
+[2024-01-19 19:24]    0.1 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/ComfyUI-Manager
+[2024-01-19 19:24]    0.1 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/SeargeSDXL
+[2024-01-19 19:24]    0.2 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/comfyui_controlnet_aux
+[2024-01-19 19:24]    0.3 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/comfyui_milehighstyler
+[2024-01-19 19:24]    0.3 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/ComfyUI_Comfyroll_CustomNodes
+[2024-01-19 19:24]    0.3 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/ComfyUI-Impact-Pack
+[2024-01-19 19:24]    0.4 seconds (IMPORT FAILED): /home/lunkwill/projects/ComfyUI/custom_nodes/was-node-suite-comfyui-main
+[2024-01-19 19:24]    3.5 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/LCM_Inpaint-Outpaint_Comfy
+[2024-01-19 19:24] 
+[2024-01-19 19:24] Starting server
+[2024-01-19 19:24] 
+[2024-01-19 19:24] To see the GUI go to: http://127.0.0.1:8188
+[2024-01-19 19:24] [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/alter-list.json
+[2024-01-19 19:24] [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json
+[2024-01-19 19:24] [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json
+[2024-01-19 19:24] [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json
+[2024-01-19 19:24] got prompt
+[2024-01-19 19:24] model_type EPS
+[2024-01-19 19:24] adm 2560
+[2024-01-19 19:24] Using xformers attention in VAE
+[2024-01-19 19:24] Working with z of shape (1, 4, 32, 32) = 4096 dimensions.
+[2024-01-19 19:24] Using xformers attention in VAE
+[2024-01-19 19:24] Requested to load SDXLRefinerClipModel
+[2024-01-19 19:24] Loading 1 new model
+[2024-01-19 19:24] loading in lowvram mode 856.4903841018677
+[2024-01-19 19:24] lowvram: loaded module regularly Embedding(49408, 1280)
+[2024-01-19 19:24] lowvram: loaded module regularly Embedding(77, 1280)
+[2024-01-19 19:24] Requested to load AutoencoderKL
+[2024-01-19 19:24] Loading 1 new model
+[2024-01-19 19:24] Requested to load SDXLRefiner
+[2024-01-19 19:24] Loading 1 new model
+[2024-01-19 19:24] loading in lowvram mode 767.259614944458
+[2024-01-19 19:24] /home/lunkwill/.local/lib/python3.10/site-packages/torchsde/_brownian/brownian_interval.py:608: UserWarning: Should have tb<=t1 but got tb=14.614643096923828 and t1=14.614643.
+  warnings.warn(f"Should have {tb_name}<=t1 but got {tb_name}={tb} and t1={self._end}.")
+[2024-01-19 19:24] /home/lunkwill/.local/lib/python3.10/site-packages/torchsde/_brownian/brownian_interval.py:599: UserWarning: Should have ta>=t0 but got ta=0.02916753850877285 and t0=0.029168.
+  warnings.warn(f"Should have ta>=t0 but got ta={ta} and t0={self._start}.")
+[2024-01-19 19:24] 100%|█████████████████████████████████████████████████████████████████████████████████████████| 60/60 [00:27<00:00,  2.29it/s]100%|█████████████████████████████████████████████████████████████████████████████████████████| 60/60 [00:27<00:00,  2.22it/s]
+[2024-01-19 19:24] Requested to load AutoencoderKL
+[2024-01-19 19:24] Loading 1 new model
+[2024-01-19 19:24] Prompt executed in 37.42 seconds

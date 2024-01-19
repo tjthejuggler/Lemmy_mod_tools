@@ -81,6 +81,65 @@ def create_new_banner(prompt):
 
     #return filepaths
 
+def create_new_banner_based_on_icon(prompt):
+    # read workflow api data from file and convert it into dictionary 
+    # assign to var prompt_workflow
+    with open('/home/lunkwill/projects/Lemmy_mod_tools/most_recent_icon.txt', 'r') as f:
+        icon_image_path = f.read().strip()
+
+    print("create_new_banner_based_on_icon")
+
+    #prompt_workflow = json.load(open('/home/lunkwill/projects/Lemmy_mod_tools/banner_based_on_icon_upscaling_added_api2.json'))
+    api_path = '/home/lunkwill/projects/Lemmy_mod_tools/new_banner_from_icon_comfyroll_api.json'
+    api_path = '/home/lunkwill/projects/Lemmy_mod_tools/banner_based_on_icon_no_outpaint_api.json'
+    prompt_workflow = json.load(open(api_path))
+
+    
+
+    # create a list of prompts
+    prompt_list = []
+    prompt_list.append(prompt)
+
+    #icon_image = prompt_workflow["20"]
+    icon_image = prompt_workflow["6"]
+    # chkpoint_loader_node = prompt_workflow["4"]
+    #prompt_pos_node = prompt_workflow["6"]
+    prompt_pos_node = prompt_workflow["7"]
+    #upscale_prompt_pos_node = prompt_workflow["38"]
+    # empty_latent_img_node = prompt_workflow["5"]
+    #ksampler_node = prompt_workflow["3"]
+    ksampler_node = prompt_workflow["9"]
+    #save_image_node = prompt_workflow["9"]
+    save_image_node = prompt_workflow["12"]
+
+    filepaths = []
+    # for every prompt in prompt_list...
+    for index, prompt in enumerate(prompt_list):
+
+        icon_image["inputs"]["image"] = icon_image_path
+
+        # set the text prompt for positive CLIPTextEncode node
+        prompt_pos_node["inputs"]["text"] = prompt
+        #upscale_prompt_pos_node["inputs"]["text"] = prompt
+
+        seed = random.randint(1, 18446744073709551614)
+
+        # set a random seed in KSampler node 
+        ksampler_node["inputs"]["seed"] = seed
+
+        fileprefix = prompt.replace(" ", "_")
+        if len(fileprefix) > 80:
+            fileprefix = fileprefix[:80]
+
+        save_image_node["inputs"]["filename_prefix"] = fileprefix
+        #make a random number
+        filepaths.append("/home/lunkwill/projects/ComfyUI/output/"+fileprefix+"_"+str(seed)+".png")
+
+    # everything set, add entire workflow to queue.
+    queue_prompt(prompt_workflow)
+
+    #return filepaths
+
 def create_new_icon(incoming_text):
     #prompt = "realistic "+incoming_text+", detailed "+incoming_text+", animal picture, spectrogram waveform, music visualizer, white spheres background, detailed, white circles"
 
@@ -207,3 +266,60 @@ def create_new_icon_funny(incoming_text):
 
 
 #create_new_banner("Bioacoustics Resources")
+
+
+
+
+
+
+
+
+
+
+
+    # workflow_path = '/home/lunkwill/projects/Lemmy_mod_tools/comfyroll_api.json'
+    # #when i hook up a new workflow_path i need to change those numbers below to match the actual api numbers
+    # prompt_workflow = json.load(open(workflow_path))
+
+    
+
+    # # create a list of prompts
+    # prompt_list = []
+    # prompt_list.append(prompt)
+
+    # #icon_image = prompt_workflow["20"]
+    # icon_image = prompt_workflow["37"]
+    # # chkpoint_loader_node = prompt_workflow["4"]
+    # #prompt_pos_node = prompt_workflow["6"]
+    # #prompt_pos_node = prompt_workflow["7"]
+    # new_prompt_pos_node = prompt_workflow["160"]
+    # #upscale_prompt_pos_node = prompt_workflow["38"]
+    # # empty_latent_img_node = prompt_workflow["5"]
+    # #ksampler_node = prompt_workflow["3"]
+    # ksampler_node = prompt_workflow["152"]
+    # #save_image_node = prompt_workflow["9"]
+    # save_image_node = prompt_workflow["9"]
+
+    # filepaths = []
+    # # for every prompt in prompt_list...
+    # for index, prompt in enumerate(prompt_list):
+
+    #     icon_image["inputs"]["image"] = icon_image_path
+
+    #     # set the text prompt for positive CLIPTextEncode node
+    #     #prompt_pos_node["inputs"]["text"] = prompt
+    #     new_prompt_pos_node["inputs"]["text_positive"] = prompt
+    #     #upscale_prompt_pos_node["inputs"]["text"] = prompt
+
+    #     seed = random.randint(1, 18446744073709551614)
+
+    #     # set a random seed in KSampler node 
+    #     ksampler_node["inputs"]["seed"] = seed
+
+    #     fileprefix = prompt.replace(" ", "_")
+    #     if len(fileprefix) > 80:
+    #         fileprefix = fileprefix[:80]
+
+    #     save_image_node["inputs"]["filename_prefix"] = fileprefix
+    #     #make a random number
+    #     filepaths.append("/home/lunkwill/projects/ComfyUI/output/"+fileprefix+"_"+str(seed)+".png")

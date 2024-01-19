@@ -4,13 +4,21 @@ from textwrap import dedent
 class PersonalAssistantTasks():
   def respond(self, agent, input):
     return Task(description=dedent(f"""
-        Receive input from your employer and determine if it is
+        Receive input from your professor and determine if it is
         a question that only needs a response or if it is a command
         that requires you to perform an action with one of your tools.
         
         {self.__tip_section()}
   
-        Here is your employers input: {input}
+        Here is your professors input: {input}
+      """),
+      agent=agent
+    )
+  
+  def goodbye(self, agent):
+    return Task(description=dedent(f"""
+        Say goodbye to your professor and end the conversation in a very strange way.        
+        {self.__tip_section()}
       """),
       agent=agent
     )

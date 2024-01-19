@@ -201,6 +201,8 @@ def update_icon_if_new_post(force_animal=None):
     icon_filepath = os.path.join(output_dir, files_after[0])
 
     print("icon_filepath", icon_filepath)
+    with open ("most_recent_icon.txt", 'w') as f:
+        f.write(icon_filepath)
 
 
     icon_url = dropbox_image_uploader.upload_image(icon_filepath)

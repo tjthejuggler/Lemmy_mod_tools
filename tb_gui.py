@@ -1,10 +1,13 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QCheckBox, QSystemTrayIcon, QMenu
+from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QCheckBox, QSystemTrayIcon, QMenu, QInputDialog
 from PyQt5.QtGui import QPixmap, QIcon
 from PyQt5.QtCore import Qt, QPoint, QTimer
 from PIL import Image
 import os
 import random
 import subprocess
+
+import asyncio
+import telegram_service
 
 print('Starting tb_gui.py')
 
@@ -71,6 +74,7 @@ class TransparentWindow(QWidget):
         self.setAttribute(Qt.WA_TranslucentBackground)
         self.setWindowFlags(Qt.FramelessWindowHint)
 
+        #Create the close button
         self.close_btn = QPushButton('X', self)
         self.close_btn.clicked.connect(self.close)
         self.close_btn.resize(50, 50)
@@ -86,7 +90,6 @@ class TransparentWindow(QWidget):
         self.close_btn.mousePressEvent = self.start_close_timer
         self.close_btn.mouseReleaseEvent = self.stop_close_timer
 
-
         # Style for the close button
         self.close_btn.setStyleSheet("""
             QPushButton {
@@ -100,6 +103,24 @@ class TransparentWindow(QWidget):
             }
         """)
 
+        #create the dialog input button
+        self.dialog_btn = QPushButton('<', self)
+        self.dialog_btn.clicked.connect(self.open_dialog)
+        self.dialog_btn.resize(50, 50)
+        self.dialog_btn.move(int(self.width()/2)+125, 300)
+
+        self.dialog_btn.setStyleSheet("""
+            QPushButton {
+                background-color: transparent;
+                                    color: transparent;
+                                    border: none;
+                                    font-size: 76px;
+            }
+            QPushButton:hover {
+                color: green;
+            }
+        """)
+        
         self.text_label = QLabel('Hello! Send me a command.', self)
         self.text_label.move(self.width() - 500, 40)
         #make the text black
@@ -124,6 +145,16 @@ class TransparentWindow(QWidget):
         restore_action.triggered.connect(self.showNormal)
         quit_action.triggered.connect(QApplication.quit)
         self.tray_icon.show()
+
+    def open_dialog(self):
+        text, ok = QInputDialog.getText(self, 'Text Input Dialog', 'Enter your text:')
+        
+        if ok:
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            coro = telegram_service.send_telegram_text_as_me_to_bot(text)
+            loop.run_until_complete(coro)
+
 
     def start_close_timer(self, event):
         self.close_timer.start()  # Start the 2-second timer

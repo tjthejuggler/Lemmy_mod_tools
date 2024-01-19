@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <link href="http://arxiv.org/api/query?search_query%3Dall%3A%22sperm%20whale%22%26id_list%3D%26start%3D0%26max_results%3D1000" rel="self" type="application/atom+xml"/>
+  <title type="html">ArXiv Query: search_query=all:"sperm whale"&amp;id_list=&amp;start=0&amp;max_results=1000</title>
+  <id>http://arxiv.org/api/pPoTD3V7g9kF9VOuN5MQ0GdiEI8</id>
+  <updated>2024-01-11T00:00:00-05:00</updated>
+  <opensearch:totalResults xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/">5</opensearch:totalResults>
+  <opensearch:startIndex xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/">0</opensearch:startIndex>
+  <opensearch:itemsPerPage xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/">1000</opensearch:itemsPerPage>
+  <entry>
+    <id>http://arxiv.org/abs/2401.00900v1</id>
+    <updated>2023-12-31T13:24:44Z</updated>
+    <published>2023-12-31T13:24:44Z</published>
+    <title>Detecting the presence of sperm whales echolocation clicks in noisy
+  environments</title>
+    <summary>  Sperm whales (Physeter macrocephalus) navigate underwater with a series of
+impulsive, click-like sounds known as echolocation clicks. These clicks are
+characterized by a multipulse structure (MPS) that serves as a distinctive
+pattern. In this work, we use the stability of the MPS as a detection metric
+for recognizing and classifying the presence of clicks in noisy environments.
+To distinguish between noise transients and to handle simultaneous emissions
+from multiple sperm whales, our approach clusters a time series of MPS measures
+while removing potential clicks that do not fulfil the limits of inter-click
+interval, duration and spectrum. As a result, our approach can handle high
+noise transients and low signal-to-noise ratio. The performance of our
+detection approach is examined using three datasets: seven months of recordings
+from the Mediterranean Sea containing manually verified ambient noise; several
+days of manually labelled data collected from the Dominica Island containing
+approximately 40,000 clicks from multiple sperm whales; and a dataset from the
+Bahamas containing 1,203 labelled clicks from a single sperm whale. Comparing
+with the results of two benchmark detectors, a better trade-off between
+precision and recall is observed as well as a significant reduction in false
+detection rates, especially in noisy environments. To ensure reproducibility,
+we provide our database of labelled clicks along with our implementation code.
+</summary>
+    <author>
+      <name>Guy Gubnitsky</name>
+    </author>
+    <author>
+      <name>Roee Diamant</name>
+    </author>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">10 pages and 10 figures</arxiv:comment>
+    <link href="http://arxiv.org/abs/2401.00900v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2401.00900v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2104.08614v1</id>
+    <updated>2021-04-17T18:39:22Z</updated>
+    <published>2021-04-17T18:39:22Z</published>
+    <title>Cetacean Translation Initiative: a roadmap to deciphering the
+  communication of sperm whales</title>
+    <summary>  The past decade has witnessed a groundbreaking rise of machine learning for
+human language analysis, with current methods capable of automatically
+accurately recovering various aspects of syntax and semantics - including
+sentence structure and grounded word meaning - from large data collections.
+Recent research showed the promise of such tools for analyzing acoustic
+communication in nonhuman species. We posit that machine learning will be the
+cornerstone of future collection, processing, and analysis of multimodal
+streams of data in animal communication studies, including bioacoustic,
+behavioral, biological, and environmental data. Cetaceans are unique non-human
+model species as they possess sophisticated acoustic communications, but
+utilize a very different encoding system that evolved in an aquatic rather than
+terrestrial medium. Sperm whales, in particular, with their highly-developed
+neuroanatomical features, cognitive abilities, social structures, and discrete
+click-based encoding make for an excellent starting point for advanced machine
+learning tools that can be applied to other animals in the future. This paper
+details a roadmap toward this goal based on currently existing technology and
+multidisciplinary scientific community effort. We outline the key elements
+required for the collection and processing of massive bioacoustic data of sperm
+whales, detecting their basic communication units and language-like
+higher-level structures, and validating these models through interactive
+playback experiments. The technological capabilities developed by such an
+undertaking are likely to yield cross-applications and advancements in broader
+communities investigating non-human communication and animal behavioral
+research.
+</summary>
+    <author>
+      <name>Jacob Andreas</name>
+    </author>
+    <author>
+      <name>Gašper Beguš</name>
+    </author>
+    <author>
+      <name>Michael M. Bronstein</name>
+    </author>
+    <author>
+      <name>Roee Diamant</name>
+    </author>
+    <author>
+      <name>Denley Delaney</name>
+    </author>
+    <author>
+      <name>Shane Gero</name>
+    </author>
+    <author>
+      <name>Shafi Goldwasser</name>
+    </author>
+    <author>
+      <name>David F. Gruber</name>
+    </author>
+    <author>
+      <name>Sarah de Haas</name>
+    </author>
+    <author>
+      <name>Peter Malkin</name>
+    </author>
+    <author>
+      <name>Roger Payne</name>
+    </author>
+    <author>
+      <name>Giovanni Petri</name>
+    </author>
+    <author>
+      <name>Daniela Rus</name>
+    </author>
+    <author>
+      <name>Pratyusha Sharma</name>
+    </author>
+    <author>
+      <name>Dan Tchernov</name>
+    </author>
+    <author>
+      <name>Pernille Tønnesen</name>
+    </author>
+    <author>
+      <name>Antonio Torralba</name>
+    </author>
+    <author>
+      <name>Daniel Vogt</name>
+    </author>
+    <author>
+      <name>Robert J. Wood</name>
+    </author>
+    <link href="http://arxiv.org/abs/2104.08614v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2104.08614v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2303.10931v1</id>
+    <updated>2023-03-20T08:09:13Z</updated>
+    <published>2023-03-20T08:09:13Z</published>
+    <title>Approaching an unknown communication system by latent space exploration
+  and causal inference</title>
+    <summary>  This paper proposes a methodology for discovering meaningful properties in
+data by exploring the latent space of unsupervised deep generative models. We
+combine manipulation of individual latent variables to extreme values outside
+the training range with methods inspired by causal inference into an approach
+we call causal disentanglement with extreme values (CDEV) and show that this
+approach yields insights for model interpretability. Using this technique, we
+can infer what properties of unknown data the model encodes as meaningful. We
+apply the methodology to test what is meaningful in the communication system of
+sperm whales, one of the most intriguing and understudied animal communication
+systems. We train a network that has been shown to learn meaningful
+representations of speech and test whether we can leverage such unsupervised
+learning to decipher the properties of another vocal communication system for
+which we have no ground truth. The proposed technique suggests that sperm
+whales encode information using the number of clicks in a sequence, the
+regularity of their timing, and audio properties such as the spectral mean and
+the acoustic regularity of the sequences. Some of these findings are consistent
+with existing hypotheses, while others are proposed for the first time. We also
+argue that our models uncover rules that govern the structure of communication
+units in the sperm whale communication system and apply them while generating
+innovative data not shown during training. This paper suggests that an
+interpretation of the outputs of deep neural networks with causal methodology
+can be a viable strategy for approaching data about which little is known and
+presents another case of how deep learning can limit the hypothesis space.
+Finally, the proposed approach combining latent space manipulation and causal
+inference can be extended to other architectures and arbitrary datasets.
+</summary>
+    <author>
+      <name>Gašper Beguš</name>
+    </author>
+    <author>
+      <name>Andrej Leban</name>
+    </author>
+    <author>
+      <name>Shane Gero</name>
+    </author>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">25 pages, 23 figures</arxiv:comment>
+    <link href="http://arxiv.org/abs/2303.10931v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2303.10931v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="stat.ML" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="stat.ML" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2307.05304v1</id>
+    <updated>2023-07-07T16:46:25Z</updated>
+    <published>2023-07-07T16:46:25Z</published>
+    <title>Social learning across symbolic cultural barriers in non-human cultures</title>
+    <summary>  Social learning is key in the development of both human and non-human animal
+societies. Here, we provide quantitative evidence that supports the existence
+of social learning in sperm whales across socio-cultural barriers, based on
+acoustic data from locations in the Pacific and Atlantic Oceans. Sperm whale
+populations have traditionally been partitioned into clans based on their vocal
+repertoire (what they say) of rhythmically patterned clicks (codas), and in
+particular their identity codas, which serve as symbolic markers for each clan.
+However, identity codas account for between 35% and 60% of all codas vocalized
+depending on the different clans. We introduce a computational modeling
+approach that recovers clan structure and shows new evidence of social learning
+across clans from the internal temporal structure of non-identity codas, the
+remaining fraction of codas. The proposed method is based on vocal style, which
+encodes how sperm whales assemble individual clicks into codas. Specifically,
+we modeled clicking pattern data using generative models based on variable
+length Markov chains, producing what we term "subcoda trees". Based on our
+results, we propose here a new concept of vocal identity, which consists of
+both vocal repertoire and style. We show that (i) style-delimited clans are
+similar to repertoire-delimited clans, and that (ii) sympatry increases vocal
+style similarity between clans for non-identity codas, but has no significant
+effect on identity codas. This implies that different clans who geographically
+overlap have similar styles for most codas, which in turn implies social
+learning across cultural boundaries. More broadly, the proposed method provides
+a new framework for comparing communication systems of other animal species,
+with potential implications for our understanding of cultural transmission in
+animal societies.
+</summary>
+    <author>
+      <name>António Leitão</name>
+    </author>
+    <author>
+      <name>Maxime Lucas</name>
+    </author>
+    <author>
+      <name>Simone Poetto</name>
+    </author>
+    <author>
+      <name>Taylor A. Hersh</name>
+    </author>
+    <author>
+      <name>Shane Gero</name>
+    </author>
+    <author>
+      <name>David Gruber</name>
+    </author>
+    <author>
+      <name>Michael Bronstein</name>
+    </author>
+    <author>
+      <name>Giovanni Petri</name>
+    </author>
+    <link href="http://arxiv.org/abs/2307.05304v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2307.05304v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.SI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.SI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="stat.AP" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/1602.02369v1</id>
+    <updated>2016-02-07T13:02:10Z</updated>
+    <published>2016-02-07T13:02:10Z</published>
+    <title>Thermal unfolding of myoglobin in the Landau-Ginzburg-Wilson approach</title>
+    <summary>  The Landau-Ginzburg-Wilson paradigm is applied to model the low-temperature
+crystallographic C$\alpha$ backbone structure of sperm whale myoglobin. The
+Glauber protocol is employed to simulate its response to an increase in ambient
+temperature. The myoglobin is found to unfold from its native state by a
+succession of $\alpha$-helical intermediates, fully in line with the observed
+folding and unfolding patterns in denaturation experiments. In particular, a
+molten globule intermediate is identified with experimentally correct
+attributes. A detailed, experimentally testable contact map is constructed to
+characterise the specifics of the unfolding pathway, including the formation of
+long range interactions. The results reveal how the unfolding process of a
+protein is driven by the interplay between, and a successive melting of, its
+modular secondary structure components.
+</summary>
+    <author>
+      <name>Xubiao Peng</name>
+    </author>
+    <author>
+      <name>Adam Sieradzan</name>
+    </author>
+    <author>
+      <name>Antti J. Niemi</name>
+    </author>
+    <arxiv:doi xmlns:arxiv="http://arxiv.org/schemas/atom">10.1103/PhysRevE.94.062405</arxiv:doi>
+    <link title="doi" href="http://dx.doi.org/10.1103/PhysRevE.94.062405" rel="related"/>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">18 pages 16 figures</arxiv:comment>
+    <link href="http://arxiv.org/abs/1602.02369v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/1602.02369v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="q-bio.BM" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="q-bio.BM" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cond-mat.soft" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="nlin.PS" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="physics.bio-ph" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+</feed>
