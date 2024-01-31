@@ -119,9 +119,9 @@ def get_funny_phrase_from_post_title(post_title, force_animal=None):
             # if LMstudio_is_already_running == False:
             #     print("starting server")
             #     LMstudio_RPA.start_server()
-            ask_local_llm.connect_to_llm()
+            #ask_local_llm.connect_to_llm()
             llm_prompt = ("Write a comedic icon description for an article with the title: \n'"+post_title+"'")
-            funny_phrase = ask_local_llm.send_prompt_to_llm(llm_prompt, system_prompt)
+            funny_phrase = ask_local_llm.send_prompt_to_llm_new(llm_prompt, system_prompt)
             if post_title.lower() in funny_phrase.lower():
                 funny_phrase = funny_phrase.lower().replace(post_title.lower(), "")
             if ":" in funny_phrase:
@@ -138,9 +138,11 @@ def get_funny_phrase_from_post_title(post_title, force_animal=None):
             #get the number of words in the funny_phrase
         except:
             funny_phrase = "Local LLM failed to make anything"
+            print(funny_phrase)
             local_failed = True
         #funny_phrase_num_words = len(funny_phrase.split(" "))
         if (local_failed == True):
+            print("local failed")
             gpt_prompt = ("Write an icon description fot an article with the title '"+post_title+"' . If you do a good job you will get a $1,000 commision.")
             funny_phrase = ask_chatGPT.send_request(gpt_prompt)
             funny_phrase = funny_phrase.strip()

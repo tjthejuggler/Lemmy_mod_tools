@@ -3,11 +3,67 @@ import json
 import subprocess
 import time
 import os
+import ollama
+
+
 
 def connect_to_llm():
     subprocess.Popen(["litellm", "--model", "ollama/solar"], preexec_fn=os.setsid)
     time.sleep(10)
     
+def send_prompt_to_llm_new(user_prompt, system_prompt = None):
+    print("user_prompt: ", user_prompt)
+    if system_prompt is None:
+        response = ollama.chat(model='solar', messages=[
+            {
+                'role': 'user',
+                'content': user_prompt,
+            },
+            ])
+    else:
+        response = ollama.chat(model='solar', messages=[
+            {
+                'role': 'user',
+                'content': user_prompt,
+            },
+            {
+                'role': 'system',
+                'content': system_prompt,
+            },
+        ])
+    # response = ollama.chat(model='solar', messages=[
+    # {
+    #     'role': 'user',
+    #     'content': 'Why is the sky blue?',
+    # },
+    # ])
+    print("response", response['message']['content'])
+
+    # disconnect = ollama.chat(model='orca-mini:3b', messages=[
+    #         {
+    #             'role': 'user',
+    #             'content': "disconnect now.",
+    #         },
+    #         ])
+
+    return response['message']['content']
+
+    # if system_prompt is None:
+    #     data = {
+    #         "model": "gpt-3.5-turbo",
+    #         "messages": [
+    #             {"role": "user", "content": user_prompt}
+    #         ]
+    #     }
+    # else:
+    #     data = {
+    #         "model": "gpt-3.5-turbo",
+    #         "messages": [
+    #             {"role": "user", "content": user_prompt},
+    #             {"role": "system", "content": system_prompt}
+    #         ]
+    #     }
+
 #you have to run this command in terminal- litellm --model ollama/mistral
 def send_prompt_to_llm(user_prompt, system_prompt = None):
     #url = "http://0.0.0.0:8000"

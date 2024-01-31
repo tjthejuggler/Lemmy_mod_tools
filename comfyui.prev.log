@@ -1,20 +1,20 @@
-** ComfyUI startup time: 2024-01-19 17:26:05.061460
-[2024-01-19 17:26] ** Platform: Linux
-[2024-01-19 17:26] ** Python version: 3.10.10 (main, Mar 21 2023, 18:45:11) [GCC 11.2.0]
-[2024-01-19 17:26] ** Python executable: /home/lunkwill/miniconda3/bin/python
-[2024-01-19 17:26] ** Log path: /home/lunkwill/projects/Lemmy_mod_tools/comfyui.log
-[2024-01-19 17:26] 
+** ComfyUI startup time: 2024-01-30 16:28:04.031296
+[2024-01-30 16:28] ** Platform: Linux
+[2024-01-30 16:28] ** Python version: 3.10.10 (main, Mar 21 2023, 18:45:11) [GCC 11.2.0]
+[2024-01-30 16:28] ** Python executable: /home/lunkwill/miniconda3/bin/python
+[2024-01-30 16:28] ** Log path: /home/lunkwill/projects/Lemmy_mod_tools/comfyui.log
+[2024-01-30 16:28] 
 Prestartup times for custom nodes:
-[2024-01-19 17:26]    0.0 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/ComfyUI-Manager
-[2024-01-19 17:26] 
-[2024-01-19 17:26] Total VRAM 16079 MB, total RAM 63991 MB
-[2024-01-19 17:26] xformers version: 0.0.20
-[2024-01-19 17:26] Set vram state to: NORMAL_VRAM
-[2024-01-19 17:26] Device: cuda:0 NVIDIA GeForce RTX 4090 Laptop GPU : cudaMallocAsync
-[2024-01-19 17:26] VAE dtype: torch.bfloat16
-[2024-01-19 17:26] Using xformers cross attention
-[2024-01-19 17:26] Searge-SDXL v4.3.1 in /home/lunkwill/projects/ComfyUI/custom_nodes/SeargeSDXL
-[2024-01-19 17:26] Traceback (most recent call last):
+[2024-01-30 16:28]    0.0 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/ComfyUI-Manager
+[2024-01-30 16:28] 
+[2024-01-30 16:28] Total VRAM 16079 MB, total RAM 63991 MB
+[2024-01-30 16:28] xformers version: 0.0.20
+[2024-01-30 16:28] Set vram state to: NORMAL_VRAM
+[2024-01-30 16:28] Device: cuda:0 NVIDIA GeForce RTX 4090 Laptop GPU : cudaMallocAsync
+[2024-01-30 16:28] VAE dtype: torch.bfloat16
+[2024-01-30 16:28] Using xformers cross attention
+[2024-01-30 16:28] Searge-SDXL v4.3.1 in /home/lunkwill/projects/ComfyUI/custom_nodes/SeargeSDXL
+[2024-01-30 16:28] Traceback (most recent call last):
   File "/home/lunkwill/projects/ComfyUI/nodes.py", line 1872, in load_custom_node
     module_spec.loader.exec_module(module)
   File "<frozen importlib._bootstrap_external>", line 883, in exec_module
@@ -30,73 +30,73 @@ Prestartup times for custom nodes:
   File "/home/lunkwill/.local/lib/python3.10/site-packages/numba/np/ufunc/decorators.py", line 3, in <module>
     from numba.np.ufunc import _internal
 SystemError: initialization of _internal failed without raising an exception
-[2024-01-19 17:26] 
-[2024-01-19 17:26] Cannot import /home/lunkwill/projects/ComfyUI/custom_nodes/was-node-suite-comfyui-main module for custom nodes: initialization of _internal failed without raising an exception
-[2024-01-19 17:26] ------------------------------------------
-[2024-01-19 17:26] [34mComfyroll Studio v1.73 : [92m 170 Nodes Loaded[0m
-[2024-01-19 17:26] ------------------------------------------
-[2024-01-19 17:26] ** For changes, please see patch notes at https://github.com/Suzie1/ComfyUI_Comfyroll_CustomNodes/blob/main/Patch_Notes.md
-[2024-01-19 17:26] ** For help, please see the wiki at https://github.com/Suzie1/ComfyUI_Comfyroll_CustomNodes/wiki
-[2024-01-19 17:26] ------------------------------------------
+[2024-01-30 16:28] 
+[2024-01-30 16:28] Cannot import /home/lunkwill/projects/ComfyUI/custom_nodes/was-node-suite-comfyui-main module for custom nodes: initialization of _internal failed without raising an exception
+[2024-01-30 16:28] ------------------------------------------
+[2024-01-30 16:28] [34mComfyroll Studio v1.73 : [92m 170 Nodes Loaded[0m
+[2024-01-30 16:28] ------------------------------------------
+[2024-01-30 16:28] ** For changes, please see patch notes at https://github.com/Suzie1/ComfyUI_Comfyroll_CustomNodes/blob/main/Patch_Notes.md
+[2024-01-30 16:28] ** For help, please see the wiki at https://github.com/Suzie1/ComfyUI_Comfyroll_CustomNodes/wiki
+[2024-01-30 16:28] ------------------------------------------
 /home/lunkwill/projects/ComfyUI/custom_nodes/comfyui_controlnet_aux/node_wrappers/dwpose.py:24: UserWarning: DWPose: Onnxruntime not found or doesn't come with acceleration providers, switch to OpenCV with CPU device. DWPose might run very slowly
   warnings.warn("DWPose: Onnxruntime not found or doesn't come with acceleration providers, switch to OpenCV with CPU device. DWPose might run very slowly")
-[2024-01-19 17:26] ### Loading: ComfyUI-Impact-Pack (V4.66.4)
-[2024-01-19 17:26] ### Loading: ComfyUI-Impact-Pack (Subpack: V0.4)
-[2024-01-19 17:26] [Impact Pack] Wildcards loading done.
-[2024-01-19 17:26] ### Loading: ComfyUI-Manager (V2.2.3)
-[2024-01-19 17:26] ### ComfyUI Revision: 1917 [d76a04b6] | Released on '2024-01-17'
-[2024-01-19 17:26] FETCH DATA from: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json
-[2024-01-19 17:26] FETCH DATA from: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json
-[2024-01-19 17:26] FETCH DATA from: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json
-[2024-01-19 17:26] FETCH DATA from: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/alter-list.json
-[2024-01-19 17:26] [36mEfficiency Nodes:[0m Attempting to add Control Net options to the 'HiRes-Fix Script' Node (comfyui_controlnet_aux add-on)...[92mSuccess![0m
-[2024-01-19 17:26] 
+[2024-01-30 16:28] ### Loading: ComfyUI-Impact-Pack (V4.66.4)
+[2024-01-30 16:28] ### Loading: ComfyUI-Impact-Pack (Subpack: V0.4)
+[2024-01-30 16:28] [Impact Pack] Wildcards loading done.
+[2024-01-30 16:28] ### Loading: ComfyUI-Manager (V2.2.3)
+[2024-01-30 16:28] ### ComfyUI Revision: 1917 [d76a04b6] | Released on '2024-01-17'
+[2024-01-30 16:28] FETCH DATA from: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json
+[2024-01-30 16:28] FETCH DATA from: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json
+[2024-01-30 16:28] FETCH DATA from: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json
+[2024-01-30 16:28] FETCH DATA from: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/alter-list.json
+[2024-01-30 16:28] [36mEfficiency Nodes:[0m Attempting to add Control Net options to the 'HiRes-Fix Script' Node (comfyui_controlnet_aux add-on)...[92mSuccess![0m
+[2024-01-30 16:28] 
 Import times for custom nodes:
-[2024-01-19 17:26]    0.0 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/image-resize-comfyui
-[2024-01-19 17:26]    0.0 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/comfyui-tooling-nodes
-[2024-01-19 17:26]    0.0 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/masquerade-nodes-comfyui
-[2024-01-19 17:26]    0.0 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/style_aligned_comfy
-[2024-01-19 17:26]    0.0 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/ComfyUI_IPAdapter_plus
-[2024-01-19 17:26]    0.0 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/comfy_PoP
-[2024-01-19 17:26]    0.0 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/ComfyUI_UltimateSDUpscale
-[2024-01-19 17:26]    0.0 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/efficiency-nodes-comfyui
-[2024-01-19 17:26]    0.0 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/ComfyUI-Manager
-[2024-01-19 17:26]    0.1 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/SeargeSDXL
-[2024-01-19 17:26]    0.2 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/comfyui_controlnet_aux
-[2024-01-19 17:26]    0.2 seconds (IMPORT FAILED): /home/lunkwill/projects/ComfyUI/custom_nodes/was-node-suite-comfyui-main
-[2024-01-19 17:26]    0.3 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/comfyui_milehighstyler
-[2024-01-19 17:26]    0.3 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/ComfyUI_Comfyroll_CustomNodes
-[2024-01-19 17:26]    0.4 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/ComfyUI-Impact-Pack
-[2024-01-19 17:26]    2.3 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/LCM_Inpaint-Outpaint_Comfy
-[2024-01-19 17:26] 
-[2024-01-19 17:26] Starting server
-[2024-01-19 17:26] 
-[2024-01-19 17:26] To see the GUI go to: http://127.0.0.1:8188
-[2024-01-19 17:26] [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/alter-list.json
-[2024-01-19 17:26] [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json
-[2024-01-19 17:26] [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json
-[2024-01-19 17:26] [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json
-[2024-01-19 17:26] got prompt
-[2024-01-19 17:26] model_type EPS
-[2024-01-19 17:26] adm 2816
-[2024-01-19 17:26] Using xformers attention in VAE
-[2024-01-19 17:26] Working with z of shape (1, 4, 32, 32) = 4096 dimensions.
-[2024-01-19 17:26] Using xformers attention in VAE
-[2024-01-19 17:26] missing {'cond_stage_model.clip_l.text_projection', 'cond_stage_model.clip_l.logit_scale'}
-[2024-01-19 17:26] left over keys: dict_keys(['cond_stage_model.clip_l.transformer.text_model.embeddings.position_ids'])
-[2024-01-19 17:26] Requested to load CLIPVisionModelProjection
-[2024-01-19 17:26] Loading 1 new model
-[2024-01-19 17:26] Requested to load SDXLClipModel
-[2024-01-19 17:26] Loading 1 new model
-[2024-01-19 17:26] Requested to load SDXL
-[2024-01-19 17:26] Loading 1 new model
-[2024-01-19 17:26] 0it [00:00, ?it/s]/home/lunkwill/projects/ComfyUI/comfy/k_diffusion/sampling.py:487: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+[2024-01-30 16:28]    0.0 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/image-resize-comfyui
+[2024-01-30 16:28]    0.0 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/comfyui-tooling-nodes
+[2024-01-30 16:28]    0.0 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/masquerade-nodes-comfyui
+[2024-01-30 16:28]    0.0 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/ComfyUI_IPAdapter_plus
+[2024-01-30 16:28]    0.0 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/style_aligned_comfy
+[2024-01-30 16:28]    0.0 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/comfy_PoP
+[2024-01-30 16:28]    0.0 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/ComfyUI_UltimateSDUpscale
+[2024-01-30 16:28]    0.0 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/efficiency-nodes-comfyui
+[2024-01-30 16:28]    0.1 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/ComfyUI-Manager
+[2024-01-30 16:28]    0.2 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/SeargeSDXL
+[2024-01-30 16:28]    0.3 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/comfyui_controlnet_aux
+[2024-01-30 16:28]    0.3 seconds (IMPORT FAILED): /home/lunkwill/projects/ComfyUI/custom_nodes/was-node-suite-comfyui-main
+[2024-01-30 16:28]    0.4 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/ComfyUI-Impact-Pack
+[2024-01-30 16:28]    0.4 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/comfyui_milehighstyler
+[2024-01-30 16:28]    0.4 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/ComfyUI_Comfyroll_CustomNodes
+[2024-01-30 16:28]    3.5 seconds: /home/lunkwill/projects/ComfyUI/custom_nodes/LCM_Inpaint-Outpaint_Comfy
+[2024-01-30 16:28] 
+[2024-01-30 16:28] Starting server
+[2024-01-30 16:28] 
+[2024-01-30 16:28] To see the GUI go to: http://127.0.0.1:8188
+[2024-01-30 16:28] [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/alter-list.json
+[2024-01-30 16:28] [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json
+[2024-01-30 16:28] got prompt
+[2024-01-30 16:28] [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json
+[2024-01-30 16:28] [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json
+[2024-01-30 16:28] model_type EPS
+[2024-01-30 16:28] adm 2816
+[2024-01-30 16:28] Using xformers attention in VAE
+[2024-01-30 16:28] Working with z of shape (1, 4, 32, 32) = 4096 dimensions.
+[2024-01-30 16:28] Using xformers attention in VAE
+[2024-01-30 16:28] missing {'cond_stage_model.clip_l.logit_scale', 'cond_stage_model.clip_l.text_projection'}
+[2024-01-30 16:28] left over keys: dict_keys(['cond_stage_model.clip_l.transformer.text_model.embeddings.position_ids'])
+[2024-01-30 16:28] Requested to load CLIPVisionModelProjection
+[2024-01-30 16:28] Loading 1 new model
+[2024-01-30 16:28] Requested to load SDXLClipModel
+[2024-01-30 16:28] Loading 1 new model
+[2024-01-30 16:28] Requested to load SDXL
+[2024-01-30 16:28] Loading 1 new model
+[2024-01-30 16:28] 0it [00:00, ?it/s]/home/lunkwill/projects/ComfyUI/comfy/k_diffusion/sampling.py:487: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
   x, info = dpm_solver.dpm_solver_adaptive(x, dpm_solver.t(torch.tensor(sigma_max)), dpm_solver.t(torch.tensor(sigma_min)), order, rtol, atol, h_init, pcoeff, icoeff, dcoeff, accept_safety, eta, s_noise, noise_sampler)
-[2024-01-19 17:26] 1it [00:00,  2.18it/s]2it [00:00,  3.75it/s]3it [00:00,  4.68it/s]4it [00:00,  5.22it/s]5it [00:01,  5.67it/s]6it [00:01,  5.97it/s]7it [00:01,  6.17it/s]8it [00:01,  6.23it/s]9it [00:01,  6.32it/s]10it [00:01,  6.05it/s]11it [00:01,  6.36it/s]12it [00:02,  6.51it/s]13it [00:02,  5.82it/s]14it [00:02,  5.23it/s]15it [00:02,  4.90it/s]16it [00:03,  4.68it/s]17it [00:03,  4.53it/s]18it [00:03,  4.45it/s]19it [00:03,  4.38it/s]20it [00:03,  4.34it/s]21it [00:04,  4.32it/s]22it [00:04,  4.30it/s]23it [00:04,  4.29it/s]24it [00:04,  4.30it/s]25it [00:05,  4.29it/s]26it [00:05,  4.28it/s]27it [00:05,  4.28it/s]28it [00:05,  4.26it/s]29it [00:06,  4.25it/s]30it [00:06,  4.25it/s]31it [00:06,  4.25it/s]32it [00:06,  4.25it/s]33it [00:07,  4.25it/s]34it [00:07,  4.24it/s]35it [00:07,  4.25it/s]36it [00:07,  4.26it/s]37it [00:07,  4.29it/s]38it [00:08,  4.28it/s]39it [00:08,  4.28it/s]40it [00:08,  4.26it/s]41it [00:08,  4.25it/s]42it [00:09,  4.25it/s]43it [00:09,  4.24it/s]44it [00:09,  4.24it/s]45it [00:09,  4.25it/s]46it [00:10,  4.24it/s]47it [00:10,  4.25it/s]48it [00:10,  4.25it/s]49it [00:10,  4.30it/s]50it [00:11,  4.29it/s]51it [00:11,  4.28it/s]52it [00:11,  4.27it/s]53it [00:11,  4.26it/s]54it [00:11,  4.26it/s]55it [00:12,  4.26it/s]56it [00:12,  4.25it/s]57it [00:12,  4.25it/s]57it [00:12,  4.48it/s]
-[2024-01-19 17:26] Using xformers attention in VAE
-[2024-01-19 17:26] Working with z of shape (1, 4, 32, 32) = 4096 dimensions.
-[2024-01-19 17:26] Using xformers attention in VAE
-[2024-01-19 17:26] Leftover VAE keys ['model_ema.decay', 'model_ema.num_updates']
-[2024-01-19 17:26] Requested to load AutoencoderKL
-[2024-01-19 17:26] Loading 1 new model
-[2024-01-19 17:26] Prompt executed in 20.90 seconds
+[2024-01-30 16:28] 1it [00:00,  1.89it/s]2it [00:00,  2.82it/s]3it [00:01,  3.05it/s]4it [00:01,  3.11it/s]5it [00:01,  3.13it/s]6it [00:02,  3.14it/s]7it [00:02,  3.07it/s]8it [00:02,  3.19it/s]9it [00:02,  3.17it/s]10it [00:03,  3.16it/s]11it [00:03,  3.19it/s]12it [00:03,  3.17it/s]13it [00:04,  3.19it/s]14it [00:04,  3.09it/s]15it [00:04,  3.18it/s]16it [00:05,  3.12it/s]17it [00:05,  3.18it/s]18it [00:05,  3.15it/s]19it [00:06,  3.15it/s]20it [00:06,  3.15it/s]21it [00:06,  3.02it/s]22it [00:07,  3.16it/s]23it [00:07,  3.16it/s]24it [00:07,  3.14it/s]25it [00:08,  3.13it/s]26it [00:08,  3.14it/s]27it [00:08,  3.13it/s]28it [00:09,  3.03it/s]29it [00:09,  3.12it/s]30it [00:09,  3.11it/s]31it [00:09,  3.10it/s]32it [00:10,  3.11it/s]33it [00:10,  3.14it/s]34it [00:10,  3.11it/s]35it [00:11,  3.05it/s]36it [00:11,  3.15it/s]37it [00:11,  3.13it/s]38it [00:12,  3.13it/s]39it [00:12,  3.13it/s]40it [00:12,  3.11it/s]41it [00:13,  3.12it/s]42it [00:13,  3.04it/s]43it [00:13,  3.13it/s]44it [00:14,  3.12it/s]45it [00:14,  3.12it/s]46it [00:14,  3.11it/s]47it [00:15,  3.11it/s]48it [00:15,  3.12it/s]49it [00:15,  3.08it/s]50it [00:16,  3.11it/s]51it [00:16,  3.11it/s]51it [00:16,  3.09it/s]
+[2024-01-30 16:28] Using xformers attention in VAE
+[2024-01-30 16:28] Working with z of shape (1, 4, 32, 32) = 4096 dimensions.
+[2024-01-30 16:28] Using xformers attention in VAE
+[2024-01-30 16:28] Leftover VAE keys ['model_ema.decay', 'model_ema.num_updates']
+[2024-01-30 16:28] Requested to load AutoencoderKL
+[2024-01-30 16:28] Loading 1 new model
+[2024-01-30 16:28] Prompt executed in 38.82 seconds

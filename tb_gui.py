@@ -5,6 +5,7 @@ from PIL import Image
 import os
 import random
 import subprocess
+import json
 
 import asyncio
 import telegram_service
@@ -12,6 +13,10 @@ import telegram_service
 print('Starting tb_gui.py')
 
 security_program = '/home/lunkwill/projects/Lemmy_mod_tools/telegram_security_cam.py'
+
+def notify(message):
+    msg = "notify-send ' ' '"+message+"'"
+    os.system(msg)
 
 class TransparentWindow(QWidget):
     def __init__(self):
@@ -32,6 +37,7 @@ class TransparentWindow(QWidget):
         random_background = random.choice(backgrounds_list)
 
         image_path = os.path.join(backgrounds_dir, random_background)
+        self.icon_image_path = image_path
         image = Image.open(image_path)
         print(image_path)
         # Process the image
@@ -120,7 +126,42 @@ class TransparentWindow(QWidget):
                 color: green;
             }
         """)
-        
+
+        #two bu
+        self.upvote_button = QPushButton('+', self)
+        self.upvote_button.clicked.connect(self.upvote_art)
+        self.upvote_button.resize(50, 50)
+        self.upvote_button.move(int(self.width()/2)-155, 300)
+
+        self.upvote_button.setStyleSheet("""
+            QPushButton {
+                background-color: transparent;
+                                    color: transparent;
+                                    border: none;
+                                    font-size: 76px;
+            }
+            QPushButton:hover {
+                color: blue;
+            }
+        """)
+
+        self.upvote_button = QPushButton('-', self)
+        self.upvote_button.clicked.connect(self.downvote_art)
+        self.upvote_button.resize(50, 50)
+        self.upvote_button.move(int(self.width()/2)-110, 300)
+
+        self.upvote_button.setStyleSheet("""
+            QPushButton {
+                background-color: transparent;
+                                    color: transparent;
+                                    border: none;
+                                    font-size: 76px;
+            }
+            QPushButton:hover {
+                color: white;
+            }
+        """)
+
         self.text_label = QLabel('Hello! Send me a command.', self)
         self.text_label.move(self.width() - 500, 40)
         #make the text black
@@ -155,6 +196,32 @@ class TransparentWindow(QWidget):
             coro = telegram_service.send_telegram_text_as_me_to_bot(text)
             loop.run_until_complete(coro)
 
+    def upvote_art(self):
+        with open('/home/lunkwill/projects/Lemmy_mod_tools/bot_art_upvotes.txt', 'r') as f:
+            art_votes_dict = json.load(f)
+        if self.icon_image_path not in art_votes_dict:
+            art_votes_dict[self.icon_image_path] = 1
+        else:
+            art_votes_dict[self.icon_image_path] += 1
+        with open('/home/lunkwill/projects/Lemmy_mod_tools/bot_art_upvotes.txt', 'w') as f:
+            json.dump(art_votes_dict, f)
+        self.load_random_background()
+        notify("upvoted")
+
+    def downvote_art(self):
+        with open('/home/lunkwill/projects/Lemmy_mod_tools/bot_art_downvotes.txt', 'r') as f:
+            art_votes_dict = json.load(f)
+        if self.icon_image_path not in art_votes_dict:
+            art_votes_dict[self.icon_image_path] = 1
+        else:
+            art_votes_dict[self.icon_image_path] += 1
+        with open('/home/lunkwill/projects/Lemmy_mod_tools/bot_art_downvotes.txt', 'w') as f:
+            json.dump(art_votes_dict, f)
+        #move it to rejected_backgrounds
+        os.rename(self.icon_image_path, '/home/lunkwill/projects/Lemmy_mod_tools/rejected_backgrounds/'+self.icon_image_path.split('/')[-1])
+        #reopen a new background
+        self.load_random_background()       
+        notify("rejected")   
 
     def start_close_timer(self, event):
         self.close_timer.start()  # Start the 2-second timer

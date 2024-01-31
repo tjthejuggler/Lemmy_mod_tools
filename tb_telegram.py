@@ -110,13 +110,14 @@ async def echo(update, context, window):
     elif received_text.lower() == ".x":
         #shutdown laptop
         subprocess.run(["shutdown", "-h", "now"], check=True)
-    else:
-        #subprocess.Popen(["python", llm_program, '"'+received_text+'"'])
-        if not received_text == "The second hottest post has changed." and not received_text == "Finished generating dr. images" and not received_text == "Daily Backup Failed":
-            response = run_program(llm_program, received_text)
-            if response and "########################" in response:
-                trimmed_response = response.split("########################")[2]
-                received_text = trimmed_response
+    #UNCOMMENTING THIS WILL GET THE BOT TO RESPOND TO ANY MESSAGE, BUT IT SHOULD PROBABLY BE ADJUSTED IN HOW IT IS PERFORMED, I THINK IT IS LEAVING STUFF RUNNING IN THE BACKGROUND THAT IS OVERHEATING THE LAPTOP
+    # else:
+    #     #subprocess.Popen(["python", llm_program, '"'+received_text+'"'])
+    #     if not received_text == "The second hottest post has changed." and not received_text == "Finished generating dr. images" and not received_text == "Daily Backup Failed":
+    #         response = run_program(llm_program, received_text)
+    #         if response and "########################" in response:
+    #             trimmed_response = response.split("########################")[2]
+    #             received_text = trimmed_response
     response = ""
     if icon_prompt:
         response = "icon prompt:" + icon_prompt +"\n"

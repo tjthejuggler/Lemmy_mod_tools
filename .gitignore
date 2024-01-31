@@ -13,6 +13,7 @@ my_account.session
 /misc_images
 /secrets
 /backgrounds
+/rejected_backgrounds
 serper_api_key.txt
 .env
 .DS_Store
