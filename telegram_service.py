@@ -1,4 +1,5 @@
 from pyrogram import Client
+import asyncio
 
 # #i will only get notifications from this if the bot is currently running on the computer
 # async def send_telegram_text_as_me_to_bot(message):
@@ -14,5 +15,7 @@ async def send_telegram_text_as_me_to_bot(message):
     async with app:
         await app.send_message("lunkstealth_bot", message)
 
-
-#send_telegram_text_as_me_to_bot("wussup?!")
+# loop = asyncio.new_event_loop()
+# asyncio.set_event_loop(loop)
+# coro = send_telegram_text_as_me_to_bot("The second activest post has changed.")
+# loop.run_until_complete(coro)

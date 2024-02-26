@@ -1,7 +1,8 @@
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QCheckBox, QSystemTrayIcon, QMenu, QInputDialog
 from PyQt5.QtGui import QPixmap, QIcon
-from PyQt5.QtCore import Qt, QPoint, QTimer
-from PIL import Image
+from PyQt5.QtCore import Qt, QPoint, QTimer, QSize, QDateTime
+from PIL import Image, ImageFilter
+
 import os
 import random
 import subprocess
@@ -9,6 +10,10 @@ import json
 
 import asyncio
 import telegram_service
+import time
+
+import pyqt5_dialog
+
 
 print('Starting tb_gui.py')
 
@@ -21,23 +26,44 @@ def notify(message):
 class TransparentWindow(QWidget):
     def __init__(self):
         super().__init__()
-        self.icon_image_path = '/home/lunkwill/projects/Lemmy_mod_tools/full_ballshead_down.png'
+
+        #self.icon_image_path = '/home/lunkwill/projects/Lemmy_mod_tools/full_ballshead_down.png'
         self.label = QLabel(self)  # Label to display the background image
-        self.load_random_background()  # Load the initial background
-        self.initUI()
-        
+        with open('/home/lunkwill/projects/Lemmy_mod_tools/current_background.txt', 'r') as f:
+            self.icon_image_path = f.read()
+        self.load_random_background(self.icon_image_path)
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.update_tooltip)
+        self.timer.start(1000)  # Update every second        
+        self.initUI()        
         self.show()
 
-    def load_random_background(self):
-        # Load a new random image from the backgrounds folder
-        backgrounds_dir = '/home/lunkwill/projects/Lemmy_mod_tools/backgrounds/'
-        backgrounds_list = os.listdir(backgrounds_dir)
-        #remove black_behind.png from backgrounds_list
-        backgrounds_list.remove("black_behind3.png")
-        random_background = random.choice(backgrounds_list)
+    def update_tooltip(self):
+        if self.timer_start_time != 0:
 
-        image_path = os.path.join(backgrounds_dir, random_background)
+            start_time = QDateTime.fromSecsSinceEpoch(int(self.timer_start_time))
+            elapsed_time = QDateTime.currentDateTime().toSecsSinceEpoch() - start_time.toSecsSinceEpoch()
+            hours, remainder = divmod(elapsed_time, 3600)
+            minutes, seconds = divmod(remainder, 60)
+            cur_type = self.current_timer_type
+            self.tray_icon.setToolTip(f"{cur_type}\n{int(hours):02}:{int(minutes):02}:{int(seconds):02}")
+
+    def load_random_background(self, image_path_given=None):
+        # Load a new random image from the backgrounds folder
+        if image_path_given:
+            image_path = image_path_given
+        else:
+            backgrounds_dir = '/home/lunkwill/projects/Lemmy_mod_tools/backgrounds/'
+            backgrounds_list = os.listdir(backgrounds_dir)
+            #remove black_behind.png from backgrounds_list
+            backgrounds_list.remove("black_behind3.png")
+            random_background = random.choice(backgrounds_list)
+            image_path = os.path.join(backgrounds_dir, random_background)
+
         self.icon_image_path = image_path
+        #save this path to a file
+        with open('/home/lunkwill/projects/Lemmy_mod_tools/current_background.txt', 'w') as f:
+            f.write(image_path)
         image = Image.open(image_path)
         print(image_path)
         # Process the image
@@ -49,31 +75,44 @@ class TransparentWindow(QWidget):
                 newData.append((255, 255, 255, 0))
             else:
                 newData.append(item)
-        image.putdata(newData)
-        #put this image in fron of "/home/lunkwill/projects/Lemmy_mod_tools/black_behind.png"
+        
+        # Create an image object with the data
+        processed_image = Image.new("RGBA", image.size)
+        processed_image.putdata(newData)
+
+        # Apply the median filter repeatedly
+        for _ in range(3):  # change the range as necessary
+            processed_image = processed_image.filter(ImageFilter.MedianFilter(size=3))
+
+        #put this image in front of "/home/lunkwill/projects/Lemmy_mod_tools/black_behind.png"
         black_behind = Image.open("/home/lunkwill/projects/Lemmy_mod_tools/backgrounds/black_behind3.png")
         #make black_behind the same size as image
-        black_behind = black_behind.resize(image.size)
-        black_behind.paste(image, (0, 0), image)
-        image = black_behind    
-
-        
-        bbox = image.getbbox()
+        black_behind = black_behind.resize(processed_image.size)
+        black_behind.paste(processed_image, (0, 0), processed_image)
+        processed_image = black_behind
+        bbox = processed_image.getbbox()
         if bbox:
             #make the bbox slightly bigger on all sides
             bbox = (bbox[0]-10, bbox[1]-10, bbox[2]+10, bbox[3]+10)
-            image = image.crop(bbox)
-
+            processed_image = processed_image.crop(bbox)
         # Save the modified image
-        image.save('temp_image.png', "PNG")
-
+        processed_image.save('temp_image.png', "PNG")
         # Set the new image as the window background
         self.set_background_image('temp_image.png')
 
+    # def set_background_image(self, image_path):
+    #     pixmap = QPixmap(image_path)
+    #     scaled_pixmap = pixmap.scaled(800, 800, Qt.KeepAspectRatio)
+    #     self.label.setPixmap(scaled_pixmap)
+    #     self.resize(scaled_pixmap.width(), scaled_pixmap.height())
     def set_background_image(self, image_path):
         pixmap = QPixmap(image_path)
-        scaled_pixmap = pixmap.scaled(800, 800, Qt.KeepAspectRatio)
+        # Define maximum window size
+        max_window_size = QSize(800, 800)
+        # Scale pixmap while maintaining aspect ratio
+        scaled_pixmap = pixmap.scaled(max_window_size, Qt.KeepAspectRatio)
         self.label.setPixmap(scaled_pixmap)
+        # Resize window to fit the scaled image
         self.resize(scaled_pixmap.width(), scaled_pixmap.height())
 
     def initUI(self):
@@ -174,18 +213,65 @@ class TransparentWindow(QWidget):
         self.security_checkbox.stateChanged.connect(self.toggle_security_from_gui)
         
         self.oldPos = self.pos()
+        #IS BACKGROUND SIZE GETTING SET AT THE BEGINNING? IT SHOULD BE ABLE TO CHANGE SIZE
+
+        self.timer_start_time = 0
+        self.current_timer_type = ""
 
         # System tray icon
         self.tray_icon = QSystemTrayIcon(self)
         self.tray_icon.setIcon(QIcon(self.icon_image_path))
+        
+
         self.tray_icon.activated.connect(self.tray_icon_activated)
         self.tray_menu = QMenu()
+        stop_timer_action = self.tray_menu.addAction("STOP Timer")
+        program_timer_action = self.tray_menu.addAction("Program Timer")
+        writing_timer_action = self.tray_menu.addAction("Writing Timer")
+        reading_timer_action = self.tray_menu.addAction("Reading Timer")
+        podcast_timer_action = self.tray_menu.addAction("Podcast Timer")
+        drawing_timer_action = self.tray_menu.addAction("Drawing Timer")
+
+        freestyle_juggling_timer_action = self.tray_menu.addAction("Freestyle Juggling Timer")
+        
         restore_action = self.tray_menu.addAction("Restore")
         quit_action = self.tray_menu.addAction("Quit")
         self.tray_icon.setContextMenu(self.tray_menu)
+        stop_timer_action.triggered.connect(lambda: self.stopTimer("stopping"))
+        program_timer_action.triggered.connect(lambda: self.startTimer("programming"))
+        writing_timer_action.triggered.connect(lambda: self.startTimer("writing"))
+        reading_timer_action.triggered.connect(lambda: self.startTimer("reading"))
+        podcast_timer_action.triggered.connect(lambda: self.startTimer("podcast"))
+        drawing_timer_action.triggered.connect(lambda: self.startTimer("drawing"))
+        freestyle_juggling_timer_action.triggered.connect(lambda: self.startTimer("freestyle_juggling"))
+        
         restore_action.triggered.connect(self.showNormal)
         quit_action.triggered.connect(QApplication.quit)
         self.tray_icon.show()
+
+    def startTimer(self, message):
+        print(message)
+        self.timer_start_time = time.time()
+        self.current_timer_type = message
+        #self.update_message("Timer started")
+        #self.update_checkbox_state(True)
+
+    def stopTimer(self, message):
+        print(message)
+        if self.current_timer_type != "" and self.timer_start_time != 0:
+            elapsed_time = time.time() - self.timer_start_time
+            pyqt5_dialog.ask_log_time(elapsed_time, self.current_timer_type)
+
+            #create a popup question to ask if the time should be logged
+
+
+            #self.update_message("Timer stopped")
+            #self.update_checkbox_state(False)
+        elapsed_time = time.time() - self.timer_start_time
+        #create a popup question
+        #self.update_message("Timer stopped")
+        #self.update_checkbox_state(False)
+
 
     def open_dialog(self):
         text, ok = QInputDialog.getText(self, 'Text Input Dialog', 'Enter your text:')

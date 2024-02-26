@@ -50,19 +50,32 @@ async def echo(update, context, window):
         await update.message.reply_text(response)
     if received_text.lower() == ".u":
         await update.message.reply_text("Updating icon...")
-        icon_prompt = change_db_icon.update_icon_if_new_post()
+        #old way
+        #icon_prompt = change_db_icon.update_icon_if_new_post()
+        #new way
+        curl_command = "curl https://us-central1-lemmy-auto-icon.cloudfunctions.net/lemmy_auto_icon"
+        process = subprocess.run(curl_command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+        # Get the output and error (if any)
+        output = process.stdout.decode('utf-8')
+        error = process.stderr.decode('utf-8')
+
+        print("Output:", output)
+        if process.returncode != 0:
+            print("Error:", error)
+
         await update.message.reply_text("Icon updated successfully!")
 
         # await update.message.reply_text("Updating banner...")
         # change_banner_if_new_post.update_banner_if_new_post()
         # await update.message.reply_text("Banner updated successfully!")
 
-        await update.message.reply_text("Updating banner based on icon...")
-        if len(received_text.split(" ")) > 1:
-            change_banner_if_new_post.update_banner_if_new_post_based_on_icon(" ".join(received_text.split(" ")[1:]))          
-        else:
-            change_banner_if_new_post.update_banner_if_new_post_based_on_icon()
-        await update.message.reply_text("Banner based on icon updated successfully!")
+        # await update.message.reply_text("Updating banner based on icon...")
+        # if len(received_text.split(" ")) > 1:
+        #     change_banner_if_new_post.update_banner_if_new_post_based_on_icon(" ".join(received_text.split(" ")[1:]))          
+        # else:
+        #     change_banner_if_new_post.update_banner_if_new_post_based_on_icon()
+        # await update.message.reply_text("Banner based on icon updated successfully!")
 
     elif received_text.lower().startswith(".ubi"):
         await update.message.reply_text("Updating banner based on icon...")

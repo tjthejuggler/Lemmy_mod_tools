@@ -48,8 +48,10 @@ def start_post_checker():
             coro = telegram_service.send_telegram_text_as_me_to_bot("The second activest post has changed.")
             loop.run_until_complete(coro)
 
+            # THIS IS COMMENTED SO THAT MY BOT WONT AUTOMATICALLY MAKE NEW IMAGES
             coro2 = telegram_service.send_telegram_text_as_me_to_bot(".U")
             loop.run_until_complete(coro2)
+
             #loop.run_until_complete(telegram_service.send_telegram_text_as_me_to_bot("U"))
             #telegram_service.send_telegram_text_as_me_to_bot("The second hottest post has changed.")
             #telegram_service.send_telegram_text_as_me_to_bot("u")
