@@ -7,7 +7,7 @@ import math
 import time
 
 dir = '/home/lunkwill/Documents/obsidyen/tail'
-obsidian_dir = '/home/lunkwill/Documents/obsidyen'
+obsidian_dir = '/home/lunkwill/Documents/obsidyen/'
 
 def notify(message):
     msg = "notify-send ' ' '"+message+"'"
@@ -28,9 +28,11 @@ def get_todays_total_time(type):
     return todays_total_time
 
 def get_current_points(type):
-    personal_records_dir = obsidian_dir+'/habitsdb.txt'
+    personal_records_dir = obsidian_dir+'habitsdb.txt'
     personal_records = make_json(personal_records_dir)
-    return personal_records[type]
+    print(personal_records[type])
+    todays_date = datetime.now().strftime("%Y-%m-%d")
+    return personal_records[type][todays_date]
 
 def increment_habit(self, type):
     todays_total_minutes = get_todays_total_time(type) / 60
@@ -94,8 +96,9 @@ def create_backup(type):
 
 def update_db(time, type):    
     #create the json file if it does not exist
-    with open(f'{dir}/{type}_times.txt', 'w') as f:
-        json.dump({}, f)
+    if not os.path.exists(f'{dir}/{type}_times.txt'):
+        with open(f'{dir}/{type}_times.txt', 'w') as f:
+            json.dump({}, f)
     create_backup(type)
     # Open the JSON file and load the data
     with open(f'{dir}/{type}_times.txt', 'r') as f:
@@ -108,9 +111,12 @@ def update_db(time, type):
     with open(f'{dir}/{type}_times.txt', 'w') as f:
         json.dump(data, f, indent=4)
 
+    increment_habit(time, type)
+    print(f'Time logged: {time} - {type}')
+
 
 def ask_log_time(elapsed_time, current_timer_type):
-    app = QApplication(sys.argv)  # Create an application object
+    #app = QApplication(sys.argv)  # Create an application object
     reply = QMessageBox.question(None, 'Log Time', f'Should the time be logged?\n{current_timer_type} - {elapsed_time}', QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
 
     if reply == QMessageBox.Yes:
@@ -124,7 +130,10 @@ def ask_log_time(elapsed_time, current_timer_type):
     #sys.exit(0)  # Exit the application
 
 def main():    
-    ask_log_time()  # Directly call the function to show the dialog
+    app = QApplication(sys.argv)  # Create an application object only once here
+    ask_log_time(20, "Example Type")  # Example call, replace with actual arguments
+    sys.exit(app.exec_())  # Start the application's event loop here
+
 
 if __name__ == '__main__':
     main()
