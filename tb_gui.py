@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QCheckBo
 from PyQt5.QtGui import QPixmap, QIcon
 from PyQt5.QtCore import Qt, QPoint, QTimer, QSize, QDateTime
 from PIL import Image, ImageFilter
+from PyQt5.QtWidgets import QMessageBox, QApplication
 
 import os
 import random
@@ -13,6 +14,8 @@ import telegram_service
 import time
 
 import pyqt5_dialog
+import threading
+import psutil
 
 
 print('Starting tb_gui.py')
@@ -115,7 +118,54 @@ class TransparentWindow(QWidget):
         # Resize window to fit the scaled image
         self.resize(scaled_pixmap.width(), scaled_pixmap.height())
 
+    def start_timer_dialog(self, type):
+        time.sleep(5)
+        msgBox = QMessageBox()
+        msgBox.setWindowTitle('Start Timer')
+        msgBox.setText(f'Do you want to start a timer for {type}?')
+        yesButton = msgBox.addButton('Yes', QMessageBox.YesRole)
+        noButton = msgBox.addButton('No', QMessageBox.NoRole)
+        msgBox.exec()
+        if msgBox.clickedButton() == yesButton:
+            self.startTimer(type)
+            print(f'Starting timer for {type}.')
+            # Here you can add the code to start the timer
+        else:
+            print("No clicked.")
+        # Explicitly delete the QMessageBox
+        msgBox.deleteLater()
+
+    def check_program(self):
+        drawio_was_open = False
+        vscode_was_open = False
+        while True:
+            drawio_is_open = False
+            vscode_is_open = False
+            # Check if the specific programs are running
+            for proc in psutil.process_iter(['name']):
+                if proc.info['name'] == 'drawio':
+                    drawio_is_open = True
+                elif proc.info['name'] == 'code':
+                    vscode_is_open = True
+
+            # If drawio is newly opened, start the timer dialog
+            if drawio_is_open and not drawio_was_open:
+                self.start_timer_dialog('writing')  # Replace 'your_argument' with the actual argument
+
+            # If VS Code is newly opened, start the timer dialog
+            if vscode_is_open and not vscode_was_open:
+                self.start_timer_dialog('programming')  # Replace 'your_argument' with the actual argument
+
+            drawio_was_open = drawio_is_open
+            vscode_was_open = vscode_is_open
+            time.sleep(1)  # Wait for a second before checking again
+
     def initUI(self):
+
+        self.thread = threading.Thread(target=self.check_program)
+        self.thread.daemon = True
+        self.thread.start()
+
         self.setAttribute(Qt.WA_TranslucentBackground)
         self.setWindowFlags(Qt.FramelessWindowHint)
 

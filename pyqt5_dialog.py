@@ -5,6 +5,7 @@ from datetime import datetime
 import os
 import math
 import time
+from PyQt5.QtWidgets import QInputDialog, QLineEdit
 
 dir = '/home/lunkwill/Documents/obsidyen/tail'
 obsidian_dir = '/home/lunkwill/Documents/obsidyen/'
@@ -19,13 +20,21 @@ def make_json(directory):
         my_json = json.load(f)
     return my_json
 
+# def get_todays_total_time(type):
+#     with open(f'{dir}/{type}_times.txt', 'r') as f:
+#         data = json.load(f)
+#     todays_total_time = 0
+#     for key, value in data.items():
+#         todays_total_time += value
+#     return todays_total_time
+
 def get_todays_total_time(type):
     with open(f'{dir}/{type}_times.txt', 'r') as f:
         data = json.load(f)
-    todays_total_time = 0
+    todays_total_minutes = 0
     for key, value in data.items():
-        todays_total_time += value
-    return todays_total_time
+        todays_total_minutes += value // 60  # Convert seconds to minutes
+    return todays_total_minutes
 
 def get_current_points(type):
     personal_records_dir = obsidian_dir+'habitsdb.txt'
@@ -34,8 +43,10 @@ def get_current_points(type):
     todays_date = datetime.now().strftime("%Y-%m-%d")
     return personal_records[type][todays_date]
 
+
+
 def increment_habit(self, type):
-    todays_total_minutes = get_todays_total_time(type) / 60
+    todays_total_minutes = get_todays_total_time(type)
     habitsdb_to_add_dir = obsidian_dir+'habitsdb_to_add.txt'
     habitsdb_to_add = make_json(habitsdb_to_add_dir)
     if type == "programming":
@@ -116,18 +127,31 @@ def update_db(time, type):
 
 
 def ask_log_time(elapsed_time, current_timer_type):
-    #app = QApplication(sys.argv)  # Create an application object
-    reply = QMessageBox.question(None, 'Log Time', f'Should the time be logged?\n{current_timer_type} - {elapsed_time}', QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+    elapsed_time = elapsed_time // 60  # Convert seconds to minutes
+    #remove the .0 from this
+    elapsed_time = int(elapsed_time)
+    msgBox = QMessageBox()
+    msgBox.setWindowTitle('Log Time')
+    msgBox.setText(f'Should the time be logged?\n{current_timer_type} - {elapsed_time}')
+    yesButton = msgBox.addButton('Yes', QMessageBox.YesRole)
+    noButton = msgBox.addButton('No', QMessageBox.NoRole)
+    editButton = msgBox.addButton('Edit', QMessageBox.ActionRole)
+    msgBox.exec()
 
-    if reply == QMessageBox.Yes:
+    if msgBox.clickedButton() == yesButton:
         print("Yes clicked.")
         update_db(elapsed_time, current_timer_type)
-        # Add your code to log the time here
+    elif msgBox.clickedButton() == editButton:
+        print("Edit clicked.")
+        new_elapsed_time, okPressed1 = QInputDialog.getText(None, "Edit elapsed time","Elapsed time:", QLineEdit.Normal, str(elapsed_time))
+        new_current_timer_type, okPressed2 = QInputDialog.getText(None, "Edit timer type","Timer type:", QLineEdit.Normal, current_timer_type)
+        if okPressed1 and new_elapsed_time.strip().isdigit():
+            elapsed_time = int(new_elapsed_time)  # convert string to int
+        if okPressed2:
+            current_timer_type = new_current_timer_type
+        update_db(elapsed_time, current_timer_type)
     else:
         print("No clicked.")
-        # Add your code to handle the 'No' case here
-    
-    #sys.exit(0)  # Exit the application
 
 def main():    
     app = QApplication(sys.argv)  # Create an application object only once here
