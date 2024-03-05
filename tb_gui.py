@@ -37,7 +37,10 @@ class TransparentWindow(QWidget):
         self.load_random_background(self.icon_image_path)
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update_tooltip)
-        self.timer.start(1000)  # Update every second        
+        self.timer.start(1000)  # Update every second
+        self.timer_tooltip = QTimer(self)
+        self.timer_tooltip.timeout.connect(self.set_random_tooltip)
+        self.timer_tooltip.start(30000)  # Update every second               
         self.initUI()        
         self.show()
 
@@ -125,15 +128,20 @@ class TransparentWindow(QWidget):
         msgBox.setText(f'Do you want to start a timer for {type}?')
         yesButton = msgBox.addButton('Yes', QMessageBox.YesRole)
         noButton = msgBox.addButton('No', QMessageBox.NoRole)
-        msgBox.exec()
-        if msgBox.clickedButton() == yesButton:
-            self.startTimer(type)
-            print(f'Starting timer for {type}.')
-            # Here you can add the code to start the timer
+        result = msgBox.exec()
+        # Check if the window is still open before proceeding
+        if self.isVisible():
+            print('result:', result)
+            if result == 0:
+                self.startTimer(type)
+                print(f'Starting timer for {type}.')
+                # Here you can add the code to start the timer
+            else:
+                print("No clicked.")
+            # Explicitly delete the QMessageBox
+            msgBox.deleteLater()
         else:
-            print("No clicked.")
-        # Explicitly delete the QMessageBox
-        msgBox.deleteLater()
+            print("Window is closed. Operation cancelled.")
 
     def check_program(self):
         drawio_was_open = False
@@ -158,7 +166,16 @@ class TransparentWindow(QWidget):
 
             drawio_was_open = drawio_is_open
             vscode_was_open = vscode_is_open
+
             time.sleep(1)  # Wait for a second before checking again
+
+    # def my_close(self):
+    #     self.set_random_tooltip()
+    #     self.close()
+
+    def set_random_tooltip(self):
+        self.tray_icon.setToolTip(self.get_random_myremind())
+        self.tray_icon.show()
 
     def initUI(self):
 
@@ -172,6 +189,7 @@ class TransparentWindow(QWidget):
         #Create the close button
         self.close_btn = QPushButton('X', self)
         self.close_btn.clicked.connect(self.close)
+
         self.close_btn.resize(50, 50)
         self.close_btn.move(int(self.width()/2)-25, 500)
 
@@ -297,6 +315,8 @@ class TransparentWindow(QWidget):
         
         restore_action.triggered.connect(self.showNormal)
         quit_action.triggered.connect(QApplication.quit)
+
+        self.set_random_tooltip()
         self.tray_icon.show()
 
     def startTimer(self, message):
@@ -306,6 +326,13 @@ class TransparentWindow(QWidget):
         #self.update_message("Timer started")
         #self.update_checkbox_state(True)
 
+    def get_random_myremind(self):
+        with open('/home/lunkwill/Documents/obsidyen/MyReminds.md', 'r') as file:
+            content = file.read()
+        items = content.split('\n\n')  # Split the content by empty lines
+        random_myremind = random.choice(items)  # Select a random item
+        return random_myremind
+    
     def stopTimer(self, message):
         print(message)
         if self.current_timer_type != "" and self.timer_start_time != 0:
@@ -318,6 +345,11 @@ class TransparentWindow(QWidget):
             #self.update_message("Timer stopped")
             #self.update_checkbox_state(False)
         elapsed_time = time.time() - self.timer_start_time
+
+        self.timer_start_time = 0
+        #/home/lunkwill/Documents/obsidyen/MyReminds.md
+
+        self.set_random_tooltip()
         #create a popup question
         #self.update_message("Timer stopped")
         #self.update_checkbox_state(False)
@@ -332,6 +364,8 @@ class TransparentWindow(QWidget):
             coro = telegram_service.send_telegram_text_as_me_to_bot(text)
             loop.run_until_complete(coro)
 
+        self.set_random_tooltip() #just get a random my_remind item as the hover of the syste tray icon
+
     def upvote_art(self):
         with open('/home/lunkwill/projects/Lemmy_mod_tools/bot_art_upvotes.txt', 'r') as f:
             art_votes_dict = json.load(f)
@@ -343,6 +377,8 @@ class TransparentWindow(QWidget):
             json.dump(art_votes_dict, f)
         self.load_random_background()
         notify("upvoted")
+
+        self.set_random_tooltip() #just get a random my_remind item as the hover of the syste tray icon
 
     def downvote_art(self):
         with open('/home/lunkwill/projects/Lemmy_mod_tools/bot_art_downvotes.txt', 'r') as f:
@@ -358,6 +394,8 @@ class TransparentWindow(QWidget):
         #reopen a new background
         self.load_random_background()       
         notify("rejected")   
+
+        self.set_random_tooltip() #just get a random my_remind item as the hover of the syste tray icon
 
     def start_close_timer(self, event):
         self.close_timer.start()  # Start the 2-second timer
@@ -393,6 +431,8 @@ class TransparentWindow(QWidget):
         if event.button() == Qt.LeftButton:
             self.oldPos = event.globalPos()
 
+            self.set_random_tooltip() #just get a random my_remind item as the hover of the syste tray icon
+
     def mouseMoveEvent(self, event):
         if event.buttons() & Qt.LeftButton:
             delta = QPoint(event.globalPos() - self.oldPos)
@@ -417,8 +457,12 @@ class TransparentWindow(QWidget):
     def update_message(self, text):
         self.text_label.setText(text)
 
+        self.set_random_tooltip() #just get a random my_remind item as the hover of the syste tray icon
+
     def update_checkbox_state(self, is_running):
         self.security_checkbox.setChecked(is_running)
+
+        self.set_random_tooltip() #just get a random my_remind item as the hover of the syste tray icon
 
     def closeEvent(self, event):
         # Minimize to system tray instead of exiting

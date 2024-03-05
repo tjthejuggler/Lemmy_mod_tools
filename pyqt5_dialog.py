@@ -143,11 +143,11 @@ def ask_log_time(elapsed_time, current_timer_type):
         update_db(elapsed_time, current_timer_type)
     elif msgBox.clickedButton() == editButton:
         print("Edit clicked.")
-        new_elapsed_time, okPressed1 = QInputDialog.getText(None, "Edit elapsed time","Elapsed time:", QLineEdit.Normal, str(elapsed_time))
+        new_elapsed_time, okPressed1 = QInputDialog.getInt(None, "Edit elapsed time","Elapsed time:", QLineEdit.Normal, elapsed_time)
         new_current_timer_type, okPressed2 = QInputDialog.getText(None, "Edit timer type","Timer type:", QLineEdit.Normal, current_timer_type)
-        if okPressed1 and new_elapsed_time.strip().isdigit():
-            elapsed_time = int(new_elapsed_time)  # convert string to int
-        if okPressed2:
+        if okPressed1:
+            elapsed_time = new_elapsed_time  # convert string to int
+        if okPressed2 and new_current_timer_type.strip():
             current_timer_type = new_current_timer_type
         update_db(elapsed_time, current_timer_type)
     else:
