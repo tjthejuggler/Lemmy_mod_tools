@@ -1,0 +1,1 @@
+This is not actually lemmy mod tools really. I took the "mod tools" that set the banner and icon based on ai art generated from the latest post and moved it to a new repo here: https://github.com/tjthejuggler/lemmy_auto_icon
