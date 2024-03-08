@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QCheckBox, QSystemTrayIcon, QMenu, QInputDialog
 from PyQt5.QtGui import QPixmap, QIcon
-from PyQt5.QtCore import Qt, QPoint, QTimer, QSize, QDateTime
+from PyQt5.QtCore import Qt, QPoint, QTimer, QSize, QDateTime, pyqtSignal
 from PIL import Image, ImageFilter
 from PyQt5.QtWidgets import QMessageBox, QApplication
 
@@ -27,9 +27,12 @@ def notify(message):
     os.system(msg)
 
 class TransparentWindow(QWidget):
+    # Define a signal for starting the timer dialog
+    startTimerDialogSignal = pyqtSignal(str)
+
     def __init__(self):
         super().__init__()
-
+        self.startTimerDialogSignal.connect(self.start_timer_dialog)
         #self.icon_image_path = '/home/lunkwill/projects/Lemmy_mod_tools/full_ballshead_down.png'
         self.label = QLabel(self)  # Label to display the background image
         with open('/home/lunkwill/projects/Lemmy_mod_tools/current_background.txt', 'r') as f:
@@ -157,12 +160,18 @@ class TransparentWindow(QWidget):
                     vscode_is_open = True
 
             # If drawio is newly opened, start the timer dialog
-            if drawio_is_open and not drawio_was_open:
-                self.start_timer_dialog('writing')  # Replace 'your_argument' with the actual argument
+            # if drawio_is_open and not drawio_was_open:
+            #     self.start_timer_dialog('writing')  # Replace 'your_argument' with the actual argument
 
+            # If drawio is newly opened, start the timer dialog
+            if drawio_is_open and not drawio_was_open:
+                self.startTimerDialogSignal.emit('writing')
             # If VS Code is newly opened, start the timer dialog
             if vscode_is_open and not vscode_was_open:
-                self.start_timer_dialog('programming')  # Replace 'your_argument' with the actual argument
+                self.startTimerDialogSignal.emit('programming')
+            # # If VS Code is newly opened, start the timer dialog
+            # if vscode_is_open and not vscode_was_open:
+            #     self.start_timer_dialog('programming')  # Replace 'your_argument' with the actual argument
 
             drawio_was_open = drawio_is_open
             vscode_was_open = vscode_is_open
