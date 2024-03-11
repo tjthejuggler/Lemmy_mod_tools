@@ -17,6 +17,7 @@ import pyqt5_dialog
 import threading
 import psutil
 
+from PyQt5.QtCore import pyqtSignal
 
 print('Starting tb_gui.py')
 
@@ -29,10 +30,12 @@ def notify(message):
 class TransparentWindow(QWidget):
     # Define a signal for starting the timer dialog
     startTimerDialogSignal = pyqtSignal(str)
+    askLogTimeSignal = pyqtSignal(int, str)  # For elapsed time and timer type
 
     def __init__(self):
         super().__init__()
         self.startTimerDialogSignal.connect(self.start_timer_dialog)
+        self.askLogTimeSignal.connect(self.askLogTimeSlot)
         #self.icon_image_path = '/home/lunkwill/projects/Lemmy_mod_tools/full_ballshead_down.png'
         self.label = QLabel(self)  # Label to display the background image
         with open('/home/lunkwill/projects/Lemmy_mod_tools/current_background.txt', 'r') as f:
@@ -46,6 +49,10 @@ class TransparentWindow(QWidget):
         self.timer_tooltip.start(30000)  # Update every second               
         self.initUI()        
         self.show()
+
+    def askLogTimeSlot(self, elapsed_time, timer_type):
+        # Implement the dialog display logic here
+        pyqt5_dialog.ask_log_time(elapsed_time, timer_type)
 
     def update_tooltip(self):
         if self.timer_start_time != 0:
@@ -343,14 +350,20 @@ class TransparentWindow(QWidget):
         return random_myremind
     
     def stopTimer(self, message):
+        if self.current_timer_type != "" and self.timer_start_time != 0:
+            elapsed_time = int(time.time() - self.timer_start_time)
+            # Emit the signal instead of directly calling the dialog
+            
+
+
+    def stopTimer(self, message):
         print(message)
         if self.current_timer_type != "" and self.timer_start_time != 0:
             elapsed_time = time.time() - self.timer_start_time
-            pyqt5_dialog.ask_log_time(elapsed_time, self.current_timer_type)
-
+            elapsed_time = round(elapsed_time / 60)
+            self.askLogTimeSignal.emit(elapsed_time, self.current_timer_type)
+            #pyqt5_dialog.ask_log_time(elapsed_time, self.current_timer_type)
             #create a popup question to ask if the time should be logged
-
-
             #self.update_message("Timer stopped")
             #self.update_checkbox_state(False)
         elapsed_time = time.time() - self.timer_start_time

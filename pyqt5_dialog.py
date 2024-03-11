@@ -33,7 +33,8 @@ def get_todays_total_time(type):
         data = json.load(f)
     todays_total_minutes = 0
     for key, value in data.items():
-        todays_total_minutes += value // 60  # Convert seconds to minutes
+        if key.split()[0] == datetime.now().strftime("%Y-%m-%d"):
+            todays_total_minutes += value # Convert seconds to minutes
     return todays_total_minutes
 
 def get_current_points(type):
@@ -41,17 +42,24 @@ def get_current_points(type):
     personal_records = make_json(personal_records_dir)
     print(personal_records[type])
     todays_date = datetime.now().strftime("%Y-%m-%d")
-    return personal_records[type][todays_date]
+    to_return = 0
+    if todays_date in personal_records[type]:
+        to_return = personal_records[type][todays_date]
+    return to_return
 
 
 
-def increment_habit(self, type):
+def increment_habit(type):
     todays_total_minutes = get_todays_total_time(type)
     habitsdb_to_add_dir = obsidian_dir+'habitsdb_to_add.txt'
     habitsdb_to_add = make_json(habitsdb_to_add_dir)
+    print("type: ", type)
     if type == "programming":
+        print("todays_total_minutes: ", todays_total_minutes)
         deserved_points = max(1,math.floor(todays_total_minutes / 60 + 0.5))
         current_points = get_current_points("Programming sessions")
+        print("current_points: ", current_points)
+        print("deserved_points: ", deserved_points)
         if current_points < deserved_points:
             points_to_add = deserved_points - current_points
             habitsdb_to_add["Programming sessions"] = points_to_add
@@ -122,7 +130,7 @@ def update_db(time, type):
     with open(f'{dir}/{type}_times.txt', 'w') as f:
         json.dump(data, f, indent=4)
 
-    increment_habit(time, type)
+    increment_habit(type)
     print(f'Time logged: {time} - {type}')
 
 
