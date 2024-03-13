@@ -47,8 +47,6 @@ def get_current_points(type):
         to_return = personal_records[type][todays_date]
     return to_return
 
-
-
 def increment_habit(type):
     todays_total_minutes = get_todays_total_time(type)
     habitsdb_to_add_dir = obsidian_dir+'habitsdb_to_add.txt'
@@ -140,7 +138,7 @@ def ask_log_time(elapsed_time, current_timer_type):
     elapsed_time = int(elapsed_time)
     msgBox = QMessageBox()
     msgBox.setWindowTitle('Log Time')
-    msgBox.setText(f'Should the time be logged?\n{current_timer_type} - {elapsed_time}')
+    msgBox.setText(f'Should the time be logged??\n{current_timer_type} - {elapsed_time}')
     yesButton = msgBox.addButton('Yes', QMessageBox.YesRole)
     noButton = msgBox.addButton('No', QMessageBox.NoRole)
     editButton = msgBox.addButton('Edit', QMessageBox.ActionRole)
