@@ -53,6 +53,7 @@ class TransparentWindow(QWidget):
 
     def askLogTimeSlot(self, timer_type):
         # Implement the dialog display logic here
+        self.show_window()
         pyqt5_dialog.ask_log_time(self.elapsed_time, timer_type)
 
     def update_tooltip(self):
